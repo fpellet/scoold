@@ -79,23 +79,26 @@ public class ScooldUtilsSearchTest {
 	}
 
 	@Test
-	public void testSanitize_quotedQuery_preserved() throws Exception {
-		// already-quoted: not re-wrapped
-		assertEquals("\"My Title\"", sanitize("*", "\"My Title\""));
+	public void testSanitize_quotedQuery_escaped() throws Exception {
+		// user quotes are escaped, not interpreted as a phrase
+		assertEquals("\\\"My Title\\\"", sanitize("*", "\"My Title\""));
 	}
 
 	@Test
-	public void testSanitize_luceneSyntaxQuery_preserved() throws Exception {
-		// field:syntax preserved (not phrase-quoted — guard sees the ":")
-		assertEquals("properties.title:foo", sanitize("*", "properties.title:foo"));
-		// AND queries preserved (guard sees " AND ")
-		assertEquals("foo AND bar", sanitize("*", "foo AND bar"));
-		// OR queries preserved (guard sees " OR ")
-		assertEquals("foo OR bar", sanitize("*", "foo OR bar"));
-		// grouped queries: bare parens (not preceded by ':') are escaped by the
-		// paren-escape regex, and the resulting string still contains '(' which
-		// trips the phrase-quote guard, so it is NOT phrase-quoted.
+	public void testSanitize_luceneOperators_escaped() throws Exception {
+		assertEquals("properties.title\\:foo", sanitize("*", "properties.title:foo"));
 		assertEquals("\\(foo bar\\)", sanitize("*", "(foo bar)"));
+		assertEquals("foo\\-bar \\+baz", sanitize("*", "foo-bar +baz"));
+		assertEquals("\\[a TO b\\] \\{c\\}", sanitize("*", "[a TO b] {c}"));
+		assertEquals("a\\&\\&b\\|\\|\\!c", sanitize("*", "a&&b||!c"));
+		assertEquals("foo\\^2 bar\\~", sanitize("*", "foo^2 bar~"));
+		// an unbalanced quote no longer breaks the query parser
+		assertEquals("foo\\\"bar", sanitize("*", "foo\"bar"));
+		// user backslashes are dropped so they cannot cancel the escaping
+		assertEquals("foo\\:bar", sanitize("*", "foo\\:bar"));
+		// AND / OR keywords are not escaped and prevent phrase-quoting
+		assertEquals("foo AND bar", sanitize("*", "foo AND bar"));
+		assertEquals("foo OR bar", sanitize("*", "foo OR bar"));
 	}
 
 	@Test
@@ -182,7 +185,6 @@ public class ScooldUtilsSearchTest {
 
 	@Test
 	public void testSanitize_colonFollowedBySpace_escaped() throws Exception {
-		// "foo: bar" → "foo\: bar" (escape the colon-space)
 		assertEquals("foo\\: bar", sanitize("*", "foo: bar"));
 	}
 
