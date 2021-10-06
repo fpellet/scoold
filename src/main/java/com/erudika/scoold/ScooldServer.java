@@ -60,14 +60,14 @@ public class ScooldServer extends SpringBootServletInitializer {
 	static {
 		// tells ParaClient where to look for classes that implement ParaObject
 		System.setProperty("para.core_package_name", "com.erudika.scoold.core");
-		System.setProperty("para.auth_cookie", Config.getRootAppIdentifier().concat("-auth"));
+		System.setProperty("para.auth_cookie", "communaute".concat("-auth"));
 		System.setProperty("server.port", String.valueOf(getServerPort()));
 		System.setProperty("server.servlet.context-path", getServerContextPath());
 		System.setProperty("server.use-forward-headers", String.valueOf(Config.IN_PRODUCTION));
 	}
 
-	public static final String LOCALE_COOKIE = Config.getRootAppIdentifier() + "-locale";
-	public static final String SPACE_COOKIE = Config.getRootAppIdentifier() + "-space";
+	public static final String LOCALE_COOKIE = "communaute" + "-locale";
+	public static final String SPACE_COOKIE = "communaute" + "-space";
 	public static final String TOKEN_PREFIX = "ST_";
 	public static final String HOMEPAGE = "/";
 	public static final String CONTEXT_PATH = StringUtils.stripEnd(getServerContextPath(), "/");
