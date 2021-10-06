@@ -1288,7 +1288,7 @@ public final class ScooldUtils {
 		String defaultQuery = "*";
 		String q = StringUtils.trimToEmpty(query);
 		if (qf.isEmpty() || qf.length() > 1) {
-			q = q.replaceAll("[\\?<>]", "").trim();
+			q = q.replaceAll("\\\\", "").replaceAll("[\\?<>]", "").replaceAll("([\\(\\)\\+\\-&!\\{\\}\\[\\]\\^\"~:\\|])", "\\\\$1").trim();
 			q = q.replaceAll("$[\\*]*", "");
 			q = RegExUtils.removeAll(q, "AND");
 			q = RegExUtils.removeAll(q, "OR");
