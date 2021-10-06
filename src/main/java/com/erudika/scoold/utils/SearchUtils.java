@@ -37,7 +37,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 import org.apache.commons.text.WordUtils;
@@ -107,14 +106,13 @@ public final class SearchUtils {
 		// leaving multi-word queries raw and causing exact-title searches to be
 		// decomposed into OR/AND-separated tokens.
 		if (!q.isEmpty()) {
-			q = q.replaceAll("[\\?<>]", "").trim();
+			// Escape every Lucene operator so user input is always searched as plain text
+			q = q.replaceAll("\\\\", "").replaceAll("[\\?<>]", "").replaceAll("([\\(\\)\\+\\-&!\\{\\}\\[\\]\\^\"~:\\|])", "\\\\$1").trim();
 			// Strip trailing wildcards from non-trivial queries so users can't
 			// inject Lucene prefix syntax. Preserve the literal "*" (match-all).
 			if (!"*".equals(q)) {
 				q = q.replaceAll("\\*+$", "");
 			}
-			q = RegExUtils.replaceAll(q, ":\\s+", "\\\\: ");
-			q = RegExUtils.replaceAll(q, "(?<!:)\\((.*?)\\)", "\\\\($1\\\\)");
 			q = q.trim();
 			// Multi-word plain-text queries are wrapped in double quotes so the
 			// search backend treats them as a phrase rather than decomposing them
