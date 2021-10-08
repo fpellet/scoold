@@ -1,206 +1,169 @@
 <div id="about">
-	#if($isAdmin)
-	<button class="btn waves-effect waves-light editlink right mtl"><i class="fa fa-pencil-square-o mrs"></i>$!lang.get('edit')</button>
-	#end
-	<h1>$!lang.get("about.title")</h1>
-
-	#macro(aboutpage )
-	<p>$!lang.get("about.scoold.1")</p>
-	<p>$!lang.get("about.scoold.2")</p>
+	<h1>À propos</h1>
+	<div class="viewbox">
+	<p>La communauté de Superindep.fr (communaute.superindep.fr) est un espace de partage communautaire, inspiré par StackOverflow.com.</p>
+	<p>Tout est dans:</p>
 	<ol class="squarelist">
-		<li>$!lang.get("about.scoold.3")</li>
-		<li>$!lang.get("about.scoold.4")</li>
-		<li>$!lang.get("about.scoold.5")</li>
-		<li>$!lang.get("about.scoold.6")</li>
+		<li>l'apprentissage de nouvelles choses,</li>
+		<li>le partage de connaissance,</li>
+		<li>obtenir et organiser l'information,</li>
+		<li>aider vos amis et gagner des points de réputation tout en le faisant.</li>
 	</ol>
-	<p>$!lang.get("about.scoold.7")</p>
+	<p>L'information est organisée autour de questions. Les questions peuvent être spécifiques ou peuvent prendre la forme d'une discussion sur un sujet donné. En dessous de chaque question sont les réponses qui sont triées par vote. Le nombre de votes indique la qualité des réponses et des questions.</p>
 
-	<h2>$!lang.get("questions.title")</h2>
-	<p>$!lang.get("about.questions.9")</p>
-	<p>$!lang.get("about.questions.10")</p>
-	<p>$!lang.get("about.questions.11")</p>
-	<p>$!lang.get("about.questions.12")</p>
+	<h2>Questions</h2>
+	<p>Vous pouvez, bien sûr, toujours répondre à votre propre question si vous connaissez la réponse. De cette façon, vous aidez les autres et vous gagnerez également de la réputation. Vous pouvez poser autant de questions que vous le souhaitez, mais gardez à l'esprit que les questions en double peuvent être rejetées ou même supprimées.</p>
+	<p>Une question peut être fermée pour diverses raisons: il y a trop de réponses, c'est une copie d'une autre question ou c'est seulement inapproprié. La fermeture d'une question signifie qu'aucune nouvelle réponse ne peut être affichée, mais cela n'affecte pas la fonctionnalité d'édition. Une question est automatiquement close une fois qu'elle atteint -5 votes.</p>
+	<p>Tout le monde avec le badge '$!lang.get("teacher")' peut éditer des questions.</p>
 
-	<h2>$!lang.get("answers.title")</h2>
-	<p>$!lang.get("about.answers.1")</p>
-	<p>$!lang.get("about.answers.2")</p>
+	<h2>Réponses</h2>
+	<p>Les réponses peuvent être postées à n'importe quelle question qui n'a pas encore été fermée. Les bonnes réponses sont toujours au sommet et l'une d'elles peut être approuvée comme la meilleure par l'auteur de la question. La réponse approuvée devrait être celle qui est la plus utile à l'auteur de la question, plutôt qu'à celle qui a le plus de votes. Vous devriez éviter de poster des réponses d'un ou deux mots. іls devraient être affichés en tant que commentaires à la place (voir Commentaires).</p>
+	<p>Tout le monde avec le badge '$!lang.get("freshman")' peut éditer ses réponses.</p>
 
-	<h2>$!lang.get("revisions.title")</h2>
-	<p>$!lang.get("about.revisions.1")</p>
-	<p>$!lang.get("about.revisions.2")</p>
+	<h2>Révisions</h2>
+	<p>Chaque fois que vous modifiez une question ou une réponse, une nouvelle révision est créée. Les révisions tiennent compte de tous les changements dans le texte, le titre et les étiquettes des questions et des réponses. La première révision est l'original. La prochaine modification que vous effectuez créera la révision n°1, suivit de n°2 et ainsi de suite.</p>
+	<p>Vous pouvez toujours revenir à l'original ou à toute autre révision. La restauration de l'original ne supprime aucune des révisions précédentes, mais crée une nouvelle révision avec le texte d'origine restauré.</p>
 
-	<h2>$!lang.get("comments.title")</h2>
-	<p>$!lang.get("about.comments.1")</p>
-	<p>$!lang.get("about.comments.2")</p>
+	<h2>Commentaires</h2>
+	<p>Les commentaires peuvent être affichés sur toutes les questions et réponses. Fondamentalement, tout ce qui est trop court pour une réponse devrait être un commentaire. Les commentaires peuvent également contenir des suggestions, des corrections ou des critiques. Les mauvais commentaires seront rejetés et automatiquement cachés une fois qu'ils atteignent -5 votes.</p>
+	<p>Tout le monde avec le badge '$!lang.get("enthusiast")' peut poster des commentaires.</p>
 
-	<h2>$!lang.get("voterep.title")</h2>
-	<p>$!lang.get("about.voterep.1")</p>
-	<p>$!lang.get("about.voterep.2")</p>
-	<p>$!lang.get("about.voterep.3")</p>
+	<h2>Vote et réputation</h2>
+	<p>Le vote fait partie intégrante de ce site. Si vous aimez quelque chose d'utile ou d'intéressant, votez pour. Les questions claires et bien écrites doivent également être votées “pour”. La même chose vaut pour les réponses qui sont utiles. Si quelque chose est mal écrit, pas clair, grossier ou inapproprié, votez “contre”.</p>
+	<p>Vos points de réputation mesurent combien d'autres personnes vous font confiance et aiment vos contributions. La réputation est obtenue en postant de bonnes questions et réponses. Vous pouvez également en gagner avec certains badges.</p>
+	<p>Le vote est lié à la réputation. Vous gagnez des points de réputation lorsque votre message est voté “pour” et vous perdez des points si votre message est voté “contre”.</p>
 	<table class="striped">
 		<thead>
 			<tr><th></th><th></th></tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.4")</td>
+				<td class="prl">Si votre réponse est votée “pour” vous obtenez:</td>
 				<td class="bold">$!ANSWER_VOTEUP_REWARD_AUTHOR $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.5")</td>
+				<td class="prl">Si votre question est votée “pour” vous obtenez:</td>
 				<td class="bold">$!QUESTION_VOTEUP_REWARD_AUTHOR $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.6")</td>
+				<td class="prl">Si votre commentaire, retour ou traduction est votée “pour” vous obtenez:</td>
 				<td class="bold">$!VOTEUP_REWARD_AUTHOR $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.7")</td>
+				<td class="prl">Si votre réponse est acceptée vous obtenez:</td>
 				<td class="bold">$!ANSWER_APPROVE_REWARD_AUTHOR $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.8")</td>
+				<td class="prl">Si vous accepté une réponse à votre question vous obtenez:</td>
 				<td class="bold">$!ANSWER_APPROVE_REWARD_VOTER $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.9")</td>
+				<td class="prl">Si votre message est voté “contre” vous perdez:</td>
 				<td class="bold">$!POST_VOTEDOWN_PENALTY_AUTHOR $!lang.get("points")</td>
 			</tr>
 			<tr>
-				<td class="prl">$!lang.get("about.voterep.10")</td>
+				<td class="prl">Si vous votez “contre” quelque chose vous perdez:</td>
 				<td class="bold">$!POST_VOTEDOWN_PENALTY_VOTER $!lang.get("points")</td>
 			</tr>
 		</tbody>
 	</table>
 	<br>
-	<h2>$!lang.get("badges.title")</h2>
-	<p>$!lang.get("about.badges.1")</p>
+	<h2>Badges</h2>
+	<p>Les badges ne sont donnés qu'à ceux qui les méritent. Être amical et traiter les gens avec respect vous rapportera toujours des badges et des points de réputation. Alors soyez gentils et obtenez quelques-uns de ces badges:</p>
 	<table>
 		<tbody>
 			<tr>
 				<td class="prl">#badgebox("niceprofile" 0)</td>
-				<td>$!lang.get("about.badges.niceprofile") <strong>(+$!NICEPROFILE_BONUS $!lang.get("points"))</strong></td>
+				<td>votre profil est complet <strong>(+$!NICEPROFILE_BONUS $!lang.get("points"))</strong></td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("reporter" 0)</td>
-				<td>$!lang.get("about.badges.reporter")</td>
+				<td>pour chaque rapport que vous soumettez</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("voter" 0)</td>
-				<td>$!lang.get("about.badges.voter")</td>
+				<td>a voté “pour” plus de 100 fois</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("critic" 0)</td>
-				<td>$!lang.get("about.badges.critic")</td>
+				<td>a voté “contre” 10 fois</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("supporter" 0)</td>
-				<td>$!lang.get("about.badges.supporter") <strong>(+$!SUPPORTER_BONUS $!lang.get("points"))</strong></td>
+				<td>a voté “pour” plus de 50 fois <strong>(+$!SUPPORTER_BONUS $!lang.get("points"))</strong></td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("commentator" 0)</td>
-				<td>$!lang.get("about.badges.commentator")</td>
+				<td>a publié 100 commentaires</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("editor" 0)</td>
-				<td>$!lang.get("about.badges.editor")</td>
+				<td>a édité votre message pour la première fois</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("backintime" 0)</td>
-				<td>$!lang.get("about.badges.backintime")</td>
+				<td>chaque fois que vous restaurez un message à partir d'une révision</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("noob" 0)</td>
-				<td>$!lang.get("about.badges.noob") <strong>(+$!NOOB_BONUS $!lang.get("points"))</strong></td>
+				<td>a approuvé une réponse à sa question pour la première fois <strong>(+$!NOOB_BONUS $!lang.get("points"))</strong></td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("enthusiast" 0)</td>
-				<td>$!lang.get("about.badges.enthusiast")</td>
+				<td>a atteint 100 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("freshman" 0)</td>
-				<td>$!lang.get("about.badges.freshman")</td>
+				<td>a atteint 300 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("scholar" 0)</td>
-				<td>$!lang.get("about.badges.scholar")</td>
+				<td>a atteint 500 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("teacher" 0)</td>
-				<td>$!lang.get("about.badges.teacher")</td>
+				<td>a atteint 1000 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("professor" 0)</td>
-				<td>$!lang.get("about.badges.professor")</td>
+				<td>a atteint 5000 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("geek" 0)</td>
-				<td>$!lang.get("about.badges.geek")</td>
+				<td>a atteint 9000 points de réputation</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("goodquestion" 0)</td>
-				<td>$!lang.get("about.badges.goodquestion") <strong>(+$!GOODQUESTION_BONUS $!lang.get("points"))</strong></td>
+				<td>votre question a atteint 20 votes <strong>(+$!GOODQUESTION_BONUS $!lang.get("points"))</strong></td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("goodanswer" 0)</td>
-				<td>$!lang.get("about.badges.goodanswer") <strong>(+$!GOODANSWER_BONUS $!lang.get("points"))</strong></td>
+				<td>votre réponse a atteint 10 votes <strong>(+$!GOODANSWER_BONUS $!lang.get("points"))</strong></td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("eureka" 0)</td>
-				<td>$!lang.get("about.badges.eureka")</td>
+				<td>chaque fois que vous répondez à votre propre question</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("senior" 0)</td>
-				<td>$!lang.get("about.badges.senior")</td>
+				<td>votre compte a un an</td>
 			</tr>
 			<tr>
 				<td class="prl">#badgebox("disciplined" 0)</td>
-				<td>$!lang.get("about.badges.disciplined")</td>
+				<td>chaque fois que vous supprimez votre propre commentaire</td>
 			</tr>
 		</tbody>
 	</table>
 	<br>
-	<h2>$!lang.get("reports.title")</h2>
-	<p>$!lang.get("about.reports.1")</p>
+	<h2>Rapports</h2>
+	<p>Si vous remarquez des problèmes sur ce site, signalez-les! Cela inclut les bugs, les informations manquantes ou incorrectes, les comportements abusifs, discriminatoires ou d'exploitation. Chaque rapport que vous envoyez nous aide à garder ce site un endroit agréable et convivial.</p>
 
-	<h2>$!lang.get("accounts.title")</h2>
-	<p>$!lang.get("about.accounts.1")</p>
-
-	<h2>$!lang.get("feedback.title")</h2>
-	<p>$!lang.get("about.feedback.1")</p>
-
-	<h2>$!lang.get("contact.title")</h2>
+	<h2>Contactez nous</h2>
 	<p>
-		<a href="mailto:contact@scoold.com">$!lang.get("signup.form.email")</a> &bull;
-		<a href="https://github.com/Erudika/scoold">GitHub</a> &bull;
-		<a href="https://twitter.com/getscoold">Twitter</a>
+		<a href="mailto:contact@communaute.superindep.fr">Email</a> &bull;
+		<a href="https://twitter.com/Superindep_fr">Twitter</a> &bull;
+		<a href="https://www.facebook.com/SuperIndep/">Facebook</a> &bull;
+		<a href="https://www.linkedin.com/company/superindep">LinkedIn</a>
 	</p>
-	#end
-	<div class="viewbox">
-		#if($abouthtml)
-			#set($_about = $abouthtml.getProperty('html'))
-			$_about
-		#else
-			#aboutpage()
-		#end
 	</div>
-	#if($isAdmin)
-	<div class="row editbox hide">
-		<form method="post" class="col s12">
-			<div class="row">
-				<div class="input-field col s12">
-					<textarea id="aboutpage" name="abouthtml" class="simple-editor">
-						#if($abouthtml)$abouthtml.getProperty('html')#else#aboutpage()#end
-					</textarea>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12 center-align">
-					<button type="submit" class="btn waves-effect waves-light mrl">$!lang.get('save')</button>
-					<button type="button" class="btn waves-effect waves-light canceledit">$!lang.get('cancel')</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	#end
 </div>

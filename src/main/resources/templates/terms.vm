@@ -1,168 +1,137 @@
 <div id="terms">
-	#if($isAdmin)
-	<button class="btn waves-effect waves-light editlink right mtl"><i class="fa fa-pencil-square-o mrs"></i>$!lang.get('edit')</button>
-	#end
 	<h1>$!lang.get("terms.title")</h1>
-
-	#macro(termspage )
+	<div class="viewbox">
 	<p>
-		The following terms and conditions govern all use of the Scoold.com website and all content, services and products available at or through the website (taken together, the Website). The Website is owned and operated by <a href="https://erudika.com">Erudika, LTD.</a> (&quot;Erudika&quot;). The Website is offered subject to your acceptance without modification of all of the terms and conditions contained herein and all other operating rules, policies (including, without limitation, the <a href="$privacylink">Privacy Policy</a>) and procedures that may be published from time to time on this Site by Erudika (collectively, the &quot;Agreement&quot;).
+        Les conditions générales suivantes régissent l'utilisation du site Web communaute.superindep.fr et de tout le contenu, des services et des produits disponibles sur ou via le site Web (ensemble, le site Web). Le site Web est détenu et exploité par <a href="https://www.superindep.fr">KickBanking SAS (dénommé "SuperIndep" ci-après)</a>. Le Site Internet est proposé sous réserve de votre acceptation sans modification de tous les termes et conditions contenus dans le présent document et de toutes les autres règles de fonctionnement, politiques (y compris, sans limitation, <a href="$privacylink">la politique de confidentialité</a>) et procédures qui peuvent être publiées de temps à autre sur ce Site par KickBanking (collectivement, le "Contrat").
 	</p>
 	<p>
-		Please read this Agreement carefully before accessing or using the Website. By accessing or using any part of the web site, you agree to become bound by the terms and conditions of this agreement. If you do not agree to all the terms and conditions of this agreement, then you may not access the Website or use any services. If these terms and conditions are considered an offer by Erudika, acceptance is expressly limited to these terms. The Website is available only to individuals who are at least 13 years old.
-	</p>
-
-	<h2>
-		1. Access to the Website
-	</h2>
-	<p>
-		Registration ("sign up") for the Website is optional. If you sign up for an account on the Website, you are responsible for maintaining the security of your account, and you are fully responsible for all activities that occur under the account and any other actions taken in connection with it. You must not describe or assign keywords to any material you post to the Website in a misleading or unlawful manner, including in a manner intended to trade on the name or reputation of others, and Erudika may change or remove any description or keyword that it considers inappropriate or unlawful, or otherwise likely to cause Erudika liability. You must immediately notify Erudika of any unauthorized uses of your account or any other breaches of security. Erudika will not be liable for any acts or omissions by You, including any damages of any kind incurred as a result of such acts or omissions.
+		Veuillez lire attentivement le présent Contrat avant d'accéder au Site ou de l'utiliser. En accédant ou en utilisant toute partie du site Web, vous acceptez d'être lié par les termes et conditions de cet accord. Si vous n'acceptez pas toutes les conditions générales de cet accord, vous ne pouvez pas accéder au site Web ni utiliser aucun service. Si ces termes et conditions sont considérés comme une offre par SuperIndep, l'acceptation est expressément limitée à ces termes. Le site Web est disponible uniquement pour les personnes âgées d'au moins 13 ans.
 	</p>
 
 	<h2>
-		2. Responsibility of Contributors
+		1. Accès au site web
 	</h2>
 	<p>
-		If ask or answer a question, post any material or links to the Website or otherwise make (or allow any third party to make) material available by means of the Website (any such material, &quot;Content&quot;), You are entirely responsible for the content of, and any harm resulting from, that Content. That is the case regardless of whether the Content in question constitutes text, graphics, an audio file, or computer software. By making Content available, you represent and warrant that:
+		L'enregistrement ("inscription") sur le site Web est facultatif. Si vous vous inscrivez pour obtenir un compte sur le site Web, vous êtes responsable du maintien de la sécurité de votre compte, et vous êtes entièrement responsable de toutes les activités qui se produisent sous le compte et de toute autre action prise en rapport avec celui-ci. Vous ne devez pas décrire ou attribuer des mots-clés à tout matériel que vous publiez sur le Site Internet d'une manière trompeuse ou illégale, y compris d'une manière visant à exploiter le nom ou la réputation d'autrui, et Superindep peut modifier ou supprimer toute description ou tout mot-clé qu'elle considère comme inapproprié ou illégal, ou susceptible de causer la responsabilité de Superindep. Vous devez immédiatement informer Superindep de toute utilisation non autorisée de votre compte ou de toute autre infraction à la sécurité. Superindep ne sera pas responsable de tout acte ou omission de votre part, y compris tout dommage de quelque nature que ce soit résultant de tels actes ou omissions.
+	</p>
+
+	<h2>
+		2. Responsabilité des contributeurs
+	</h2>
+	<p>
+		Si vous posez une question ou répondez à une question, si vous publiez du matériel ou des liens sur le site Web ou si vous mettez (ou permettez à un tiers de mettre) du matériel à disposition par le biais du site Web (tout matériel de ce type, le "contenu"), vous êtes entièrement responsable du contenu et de tout préjudice résultant de ce contenu. Cela vaut indépendamment du fait que le contenu en question soit un texte, un graphique, un fichier audio ou un logiciel informatique. En mettant le contenu à disposition, vous déclarez et garantissez que :
 	</p>
 
 	<ol class="abclist mll pll mbm">
 		<li>
-		   the downloading, copying and use of the Content will not infringe the proprietary rights, including but not limited to the copyright, patent, trademark or trade secret rights, of any third party;
+			le téléchargement, la copie et l'utilisation du contenu n'enfreindront pas les droits de propriété, y compris, mais sans s'y limiter, les droits d'auteur, de brevet, de marque ou de secret commercial, d'un tiers;
 		</li>
 		<li>
-		   if your employer has rights to intellectual property you create, you have either (i) received permission from your employer to post or make available the Content, including but not limited to any software, or (ii) secured from your employer a waiver as to all rights in or to the Content;
+			si votre employeur a des droits sur la propriété intellectuelle que vous créez, vous avez soit (i) reçu l'autorisation de votre employeur de publier ou de mettre à disposition le contenu, y compris, mais sans s'y limiter, tout logiciel, soit (ii) obtenu de votre employeur une renonciation à tous les droits sur le contenu;
 		</li>
 		<li>
-		   you have fully complied with any third-party licenses relating to the Content, and have done all things necessary to successfully pass through to end users any required terms;
+			vous vous êtes pleinement conformé aux licences de tiers relatives au contenu et avez fait tout ce qui était nécessaire pour transmettre avec succès aux utilisateurs finaux les conditions requises;
 		</li>
 		<li>
-		   the Content does not contain or install any viruses, worms, malware, Trojan horses or other harmful or destructive content;
+			le contenu ne contient ni n'installe aucun virus, ver, logiciel malveillant, cheval de Troie ou autre contenu nuisible ou destructeur;
 		</li>
 		<li>
-		   the Content is not spam, is not machine- or randomly-generated, and does not contain unethical or unwanted commercial content designed to drive traffic to third party sites or boost the search engine rankings of third party sites, or to further unlawful acts (such as phishing) or mislead recipients as to the source of the material (such as spoofing);
+			le contenu n'est pas un spam, n'est pas généré par une machine ou de manière aléatoire, et ne contient pas de contenu commercial non éthique ou indésirable conçu pour attirer du trafic vers des sites tiers ou améliorer le classement des sites tiers dans les moteurs de recherche, ou pour favoriser des actes illégaux (comme le phishing) ou tromper les destinataires quant à la source du matériel (comme le spoofing);
 		</li>
 		<li>
-		   the Content is not pornographic, racist or homophobic, does not contain threats or incite violence towards individuals or entities, and does not violate the privacy or publicity rights of any third party;
+			le contenu n'est pas pornographique, raciste ou homophobe, ne contient pas de menaces ou n'incite pas à la violence à l'égard de personnes ou d'entités, et ne viole pas les droits à la vie privée ou à la publicité d'un tiers;
 		</li>
 		<li>
-		   your profile on the Website does not mislead viewers into thinking that you are another person or company. For example, your avatar or name is not that of a person other than yourself or company other than your own; and
+			votre profil sur le site Web n'induit pas les spectateurs en erreur en leur faisant croire que vous êtes une autre personne ou une autre société. Par exemple, votre avatar ou votre nom n'est pas celui d'une personne autre que vous-même ou d'une société autre que la vôtre; et
 		</li>
 		<li>
-		   you have, in the case of Content that includes computer code, accurately categorized and/or described the type, nature, uses and effects of the materials, whether requested to do so by Erudika or otherwise.
+			vous avez, dans le cas d'un contenu comprenant un code informatique, catégorisé et/ou décrit avec précision le type, la nature, les utilisations et les effets du matériel, que cela vous ait été demandé par Superindep ou autrement.
 		</li>
 	</ol>
 	<p>
-		If you post any Content to this Website, it will be made available under the terms of the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-Sharealike</a> license.
+		Si vous publiez un contenu sur ce site Web, il sera mis à disposition selon les termes de la licence <a rel="nofollow" href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA</a>.
 	</p>
 	<p>
-		If you delete Content, Erudika will use reasonable efforts to remove it from the Website, but you acknowledge that caching or references to the Content may not be made immediately unavailable. Without limiting any of those representations or warranties, Erudika has the right (though not the obligation) to, in Erudika's sole discretion (i) refuse or remove any content that, in Erudika's reasonable opinion, violates any Erudika policy or is in any way harmful or objectionable, or (ii) terminate or deny access to and use of the Website to any individual or entity for any reason, in Erudika's sole discretion.
+		Si vous supprimez du contenu, Superindep fera des efforts raisonnables pour le retirer du site Web, mais vous reconnaissez que la mise en cache ou les références au contenu peuvent ne pas être rendues immédiatement indisponibles. Sans limiter ces déclarations ou garanties, Superindep a le droit (mais pas l'obligation), à la seule discrétion de Superindep (i) de refuser ou de supprimer tout contenu qui, selon l'opinion raisonnable de Superindep, viole toute politique de Superindep ou est de quelque manière que ce soit nuisible ou répréhensible, ou (ii) de résilier ou de refuser l'accès et l'utilisation du Site à toute personne ou entité pour toute raison, à la seule discrétion de Superindep.
 	</p>
 
 	<h2>
-		3. Responsibility of Website Visitors
+		3. Responsabilité des visiteurs du site web
 	</h2>
 	<p>
-		Erudika has not reviewed, and cannot review, all of the material, including computer software, posted to the Website, and cannot therefore be responsible for that material's content, use or effects. By operating the Website, Erudika does not represent or imply that it endorses the material there posted, or that it believes such material to be accurate, useful or non-harmful. You are responsible for taking precautions as necessary to protect yourself and your computer systems from viruses, worms, Trojan horses, and other harmful or destructive content. The Website may contain content that is offensive, indecent, or otherwise objectionable, as well as content containing technical inaccuracies, typographical mistakes, and other errors. The Website may also contain material that violates the privacy or publicity rights, or infringes the intellectual property and other proprietary rights, of third parties, or the downloading, copying or use of which is subject to additional terms and conditions, stated or unstated. Erudika disclaims any responsibility for any harm resulting from the use by visitors of the Website, or from any downloading by those visitors of content there posted.
+		Superindep n'a pas examiné, et ne peut pas examiner, tout le matériel, y compris les logiciels informatiques, publié sur le Site Internet, et ne peut donc pas être responsable du contenu, de l'utilisation ou des effets de ce matériel. En exploitant le Site Internet, Superindep ne déclare pas ou n'implique pas qu'elle approuve le matériel affiché, ou qu'elle croit que ce matériel est exact, utile ou non nuisible. Il vous incombe de prendre les précautions nécessaires pour vous protéger et protéger vos systèmes informatiques contre les virus, les vers, les chevaux de Troie et tout autre contenu nuisible ou destructeur. Le site Web peut contenir du contenu offensant, indécent ou autrement répréhensible, ainsi que du contenu contenant des inexactitudes techniques, des erreurs typographiques et d'autres erreurs. Le Site peut également contenir des éléments qui violent la vie privée ou les droits de publicité, ou qui enfreignent la propriété intellectuelle et d'autres droits de propriété de tiers, ou dont le téléchargement, la copie ou l'utilisation sont soumis à des conditions supplémentaires, déclarées ou non. Superindep décline toute responsabilité pour tout préjudice résultant de l'utilisation par les visiteurs du site Web, ou de tout téléchargement par ces visiteurs du contenu qui y est affiché.
 	</p>
 
 	<h2>
-		4. Content Posted on Other Websites
+		4. Contenu publié sur d'autres sites web
 	</h2>
 	<p>
-		We have not reviewed, and cannot review, all of the material, including computer software, made available through the websites and webpages to which Scoold.com links, and that link to Scoold.com. Erudika does not have any control over those external websites and webpages, and is not responsible for their contents or their use. By linking to an external website or webpage, Erudika does not represent or imply that it endorses such website or webpage. You are responsible for taking precautions as necessary to protect yourself and your computer systems from viruses, worms, Trojan horses, and other harmful or destructive content. Erudika disclaims any responsibility for any harm resulting from your use of external websites and webpages.
+		Nous n'avons pas examiné, et ne pouvons pas examiner, tout le matériel, y compris les logiciels informatiques, mis à disposition par les sites Web et les pages Web vers lesquels communaute.superindep.fr renvoie, et qui renvoient à communaute.superindep.fr. Superindep n'a aucun contrôle sur ces sites et pages web externes, et n'est pas responsable de leur contenu ou de leur utilisation. En établissant un lien vers un site ou une page web externe, Superindep ne déclare pas ou n'implique pas qu'elle approuve ce site ou cette page web. Il vous incombe de prendre les précautions nécessaires pour vous protéger et protéger vos systèmes informatiques contre les virus, les vers, les chevaux de Troie et tout autre contenu nuisible ou destructeur. Superindep décline toute responsabilité pour tout préjudice résultant de votre utilisation de sites et pages web externes.
 	</p>
 
 	<h2>
-		5. Copyright Infringement and DMCA Policy
+		5. Violation des droits d'auteur
 	</h2>
 	<p>
-		As Erudika asks others to respect its intellectual property rights, it respects the intellectual property rights of others. If you believe that material located on or linked to by Scoold.com violates your copyright, you are encouraged to notify Erudika in accordance with Erudika's Digital Millennium Copyright Act (&quot;DMCA&quot;) Policy. Erudika will respond to all such notices, including as required or appropriate by removing the infringing material or disabling all links to the infringing material. Erudika will terminate a visitor's access to and use of the Website if, under appropriate circumstances, the visitor is determined to be a repeat infringer of the copyrights or other intellectual property rights of Erudika or others.
+		Comme Superindep demande aux autres de respecter ses droits de propriété intellectuelle, elle respecte les droits de propriété intellectuelle des autres. Si vous pensez que le matériel situé sur ou lié à communaute.superindep.fr viole vos droits d'auteur, nous vous encourageons à en informer Superindep. Superindep répondra à tous les avis de ce type, y compris, si nécessaire ou approprié, en retirant le matériel en infraction ou en désactivant tous les liens vers le matériel en infraction. Superindep mettra fin à l'accès d'un visiteur et à son utilisation du site Web si, dans des circonstances appropriées, le visiteur est considéré comme un contrefacteur récidiviste des droits d'auteur ou autres droits de propriété intellectuelle de Superindep ou d'autres personnes.
 	</p>
 
 	<h2>
-		6. Intellectual Property
+		6. Propriété intellectuelle
 	</h2>
 	<p>
-		This Agreement does not transfer from Erudika to you any Erudika or third party intellectual property, and all right, title and interest in and to such property will remain (as between the parties) solely with Erudika. Erudika, Scoold, Scoold.com, the Scoold.com logo, and all other trademarks, service marks, graphics and logos used in connection with Scoold.com, or the Website are trademarks or registered trademarks of Erudika or Erudika's licensors. Other trademarks, service marks, graphics and logos used in connection with the Website may be the trademarks of other third parties. Your use of the Website grants you no right or license to reproduce or otherwise use any Erudika or third-party trademarks.
+		Cet accord ne transfère pas de Superindep à vous la propriété intellectuelle de Superindep ou de tiers, et tout droit, titre et intérêt dans et à cette propriété restera (comme entre les parties) uniquement à Superindep, communaute.superindep.fr, le logo SuperIndep, et toutes les autres marques, marques de service, graphiques et logos utilisés en relation avec communaute.superindep.fr, ou le Site Web sont des marques ou des marques déposées de Superindep ou des concédants de licence de Superindep. Les autres marques de commerce, marques de service, graphiques et logos utilisés en relation avec le site Web peuvent être des marques de commerce d'autres tiers. Votre utilisation du Site ne vous accorde aucun droit ou licence de reproduction ou d'utilisation des marques de Superindep ou de tiers.
 	</p>
 
 	<h2>
-		7. Changes
+		7. Modifications
 	</h2>
 	<p>
-		Erudika reserves the right, at its sole discretion, to modify or replace any part of this Agreement. It is your responsibility to check this Agreement periodically for changes. Your continued use of or access to the Website following the posting of any changes to this Agreement constitutes acceptance of those changes. Erudika may also, in the future, offer new services and/or features through the Website (including, the release of new tools and resources). Such new features and/or services shall be subject to the terms and conditions of this Agreement.
+		Superindep se réserve le droit, à sa seule discrétion, de modifier ou de remplacer tout ou partie de cet Accord. Il est de votre responsabilité de vérifier périodiquement les changements apportés au présent Contrat. La poursuite de l'utilisation ou de l'accès au site Web après la publication de toute modification de la présente convention constitue l'acceptation de ces modifications. Superindep peut également, à l'avenir, offrir de nouveaux services et/ou fonctionnalités par le biais du Site Internet (y compris, la publication de nouveaux outils et ressources). Ces nouvelles fonctionnalités et/ou services seront soumis aux termes et conditions du présent Contrat.
 	</p>
 
 	<h2>
-		8. Termination
+		8. Résiliation
 	</h2>
 	<p>
-		Erudika may terminate your access to all or any part of the Website at any time, with or without cause, with or without notice, effective immediately. If you wish to terminate this Agreement or your Scoold.com account (if you have one), you may simply discontinue using the Website. Erudika can also terminate the Website immediately as part of a general shut down of our service. All provisions of this Agreement which by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity and limitations of liability.
+		Superindep peut mettre fin à votre accès à tout ou partie du site Web à tout moment, avec ou sans raison, avec ou sans préavis, avec effet immédiat. Si vous souhaitez résilier cet accord ou votre compte communaute.superindep.fr (si vous en avez un), vous pouvez simplement cesser d'utiliser le site Web. Superindep peut également mettre fin au site Web immédiatement dans le cadre d'une fermeture générale de notre service. Toutes les dispositions du présent Accord qui, par leur nature, devraient survivre à la résiliation, survivront à la résiliation, y compris, mais sans s'y limiter, les dispositions relatives à la propriété, l'exonération de garantie, l'indemnisation et les limitations de responsabilité.
 	</p>
 
 	<h2>
-		9. Disclaimer of Warranties
+		9. Exclusion des garanties
 	</h2>
 	<p>
-		The Website is provided &quot;as is&quot;. Erudika and its suppliers and licensors hereby disclaim all warranties of any kind, express or implied, including, without limitation, the warranties of merchantability, fitness for a particular purpose and non-infringement. Neither Erudika nor its suppliers and licensors, makes any warranty that the Website will be error free or that access thereto will be continuous or uninterrupted. You understand that you download from, or otherwise obtain content or services through, the Website at your own discretion and risk.
+		Le site Web est fourni "en l'état". Superindep et ses fournisseurs et concédants de licence déclinent par la présente toute garantie de quelque nature que ce soit, expresse ou implicite, y compris, sans limitation, les garanties de qualité marchande, d'adéquation à un usage particulier et de non-violation. Ni Superindep, ni ses fournisseurs et concédants de licence, ne garantissent que le site Web sera exempt d'erreurs ou que l'accès à celui-ci sera continu ou ininterrompu. Vous comprenez que vous téléchargez ou obtenez du contenu ou des services à partir du site Web à votre propre discrétion et à vos propres risques.
 	</p>
 
 	<h2>
-		10. Limitation of Liability
+		10. Limitation de la responsabilité
 	</h2>
 	<p>
-		In no event will Erudika, or its suppliers or licensors, be liable with respect to any subject matter of this agreement under any contract, negligence, strict liability or other legal or equitable theory for: (i) any special, incidental or consequential damages; (ii) the cost of procurement or substitute products or services; or (iii) for interruption of use or loss or corruption of data. Erudika shall have no liability for any failure or delay due to matters beyond their reasonable control. The foregoing shall not apply to the extent prohibited by applicable law.
+		En aucun cas, Superindep, ses fournisseurs ou ses concédants de licence ne pourront être tenus responsables de l'objet du présent contrat en vertu d'un contrat, d'une négligence, d'une responsabilité stricte ou de toute autre théorie légale ou équitable pour : (i) tout dommage spécial, accidentel ou consécutif ; (ii) le coût d'acquisition de produits ou services de substitution ; ou (iii) l'interruption d'utilisation ou la perte ou la corruption de données. Superindep n'est pas responsable des défaillances ou des retards dus à des facteurs échappant à son contrôle raisonnable. Ce qui précède ne s'applique pas dans la mesure où la loi applicable l'interdit.
 	</p>
 
 	<h2>
-		11. General Representation and Warranty
+		11. Déclaration et garantie générales
 	</h2>
 	<p>
-		You represent and warrant that (i) your use of the Website will be in strict accordance with the Erudika Privacy Policy, with this Agreement and with all applicable laws and regulations (including without limitation any local laws or regulations in your country, state, city, or other governmental area, regarding online conduct and acceptable content, and including all applicable laws regarding the transmission of technical data exported from the United States or the country in which you reside) and (ii) your use of the Website will not infringe or misappropriate the intellectual property rights of any third party.
+		Vous déclarez et garantissez que (i) votre utilisation du Site sera en stricte conformité avec la Politique de confidentialité de Superindep, avec le présent Accord et avec toutes les lois et règlementations applicables (y compris, sans limitation, toutes les lois ou règlementations locales dans votre pays, état, ville ou autre zone gouvernementale, concernant la conduite en ligne et le contenu acceptable, et y compris toutes les lois applicables concernant la transmission de données techniques exportées des États-Unis ou du pays dans lequel vous résidez) et (ii) votre utilisation du Site ne violera ni ne détournera les droits de propriété intellectuelle d'un tiers.
 	</p>
 
 	<h2>
-		12. Indemnification
+		12. Indemnisation
 	</h2>
 	<p>
-		You agree to indemnify and hold harmless Erudika, its contractors, and its licensors, and their respective directors, officers, employees and agents from and against any and all claims and expenses, including attorneys' fees, arising out of your use of the Website, including but not limited to your violation of this Agreement.
+		Vous acceptez d'indemniser et de dégager de toute responsabilité Superindep, ses contractants et ses concédants, ainsi que leurs directeurs, responsables, employés et agents respectifs, de toute réclamation et dépense, y compris les honoraires d'avocat, résultant de votre utilisation du site Web, y compris, mais sans s'y limiter, de votre violation du présent accord.
 	</p>
 
 	<h2>
-		13. Miscellaneous
+		13. Divers
 	</h2>
 	<p>
-		This Agreement constitutes the entire agreement between Erudika and you concerning the subject matter hereof, and they may only be modified by a written amendment signed by an authorized executive of Erudika, or by the posting by Erudika of a revised version. If any part of this Agreement is held invalid or unenforceable, that part will be construed to reflect the parties' original intent, and the remaining portions will remain in full force and effect. A waiver by either party of any term or condition of this Agreement or any breach thereof, in any one instance, will not waive such term or condition or any subsequent breach thereof. You may assign your rights under this Agreement to any party that consents to, and agrees to be bound by, its terms and conditions; Erudika may assign its rights under this Agreement without condition. This Agreement will be binding upon and will inure to the benefit of the parties, their successors and permitted assigns.
+		Le présent Contrat constitue l'intégralité de l'accord entre Superindep et vous concernant l'objet des présentes, et il ne peut être modifié que par un amendement écrit signé par un dirigeant autorisé de Superindep, ou par la publication par Superindep d'une version révisée. Si une partie de cet accord est jugée invalide ou inapplicable, cette partie sera interprétée de manière à refléter l'intention initiale des parties, et les parties restantes resteront en vigueur et de plein effet. La renonciation par l'une ou l'autre des parties à un terme ou à une condition du présent accord ou à une violation de celui-ci, dans un cas donné, n'entraînera pas la renonciation à ce terme ou à cette condition ou à toute violation ultérieure de celui-ci. Vous pouvez céder vos droits en vertu du présent Contrat à toute partie qui accepte d'être liée par ses termes et conditions ; Superindep peut céder ses droits en vertu du présent Contrat sans condition. Le présent Contrat lie les parties et s'applique au bénéfice des parties, de leurs successeurs et de leurs ayants droit autorisés.
 	</p>
 
-	<i class="lightgray">Originally published by Automattic, Inc. as the WordPress.com Terms of Service and made available by them under the <a href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Sharealike</a> License. This modified version is also made available under the terms of the same license. If you have any questions regarding this document, please send them to <a href="mailto:contact@scoold.com">contact@scoold.com</a>.</i>
-	#end
-	<div class="viewbox">
-		#if($termshtml)
-			#set($_terms = $termshtml.getProperty('html'))
-			$_terms
-		#else
-			#termspage()
-		#end
+	<i class="lightgray">Publié à l'origine par Automattic, Inc. sous le nom de WordPress.com Terms of Service et mis à disposition par eux sous la licence <a rel="nofollow" href="https://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Sharealike</a>. TCette version modifiée est basée sur la version publiée par Erudika, sous le nom Scoold Terms of Use et mis à disposition par eux sous la licence Creative Commons Sharealike. Cette version modifiée est également mise à disposition sous les termes de la même licence. Si vous avez des questions concernant ce document, veuillez les envoyer à contact@communaute.superindep.fr.</i>
 	</div>
-	#if($isAdmin)
-	<div class="row editbox hide">
-    <form method="post" class="col s12">
-      <div class="row">
-        <div class="input-field col s12">
-          <textarea id="termspage" name="termshtml" class="simple-editor">
-						#if($termshtml)$termshtml.getProperty('html')#else#termspage()#end
-					</textarea>
-        </div>
-			</div>
-      <div class="row">
-        <div class="input-field col s12 center-align">
-					<button type="submit" class="btn waves-effect waves-light mrl">$!lang.get('save')</button>
-					<button type="button" class="btn waves-effect waves-light canceledit">$!lang.get('cancel')</button>
-				</div>
-      </div>
-    </form>
-  </div>
-	#end
 </div>
