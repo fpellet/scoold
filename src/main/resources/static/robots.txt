@@ -1,7 +1,13 @@
-# scoold.com robots.txt
+# communaute.superindep.fr robots.txt
 
 User-agent: *
 
+Disallow: /people
+Disallow: /profile
+Disallow: /settings
+Disallow: /admin
+Disallow: /reports
+Disallow: /questions/ask
 Disallow: /error
 Disallow: /feedback
 Disallow: /api/*
