@@ -1,143 +1,95 @@
 <div id="privacy">
-	#if($isAdmin)
-	<button class="btn waves-effect waves-light editlink right mtl"><i class="fa fa-pencil-square-o mrs"></i>$!lang.get('edit')</button>
-	#end
 	<h1>$!lang.get("privacy.title")</h1>
-
-	#macro(privacypage )
+	<div class="viewbox">
 	<p>
-		This privacy notice discloses the privacy practices for Scoold.com. This privacy notice applies solely to information collected by this web site. It will notify you of the following:
+		Le présent avis de confidentialité décrit les pratiques de la communauté SuperIndep.fr en matière de confidentialité. Cet avis de confidentialité s'applique uniquement aux informations recueillies par le site web communaute.superindep.fr. Il vous informe de ce qui suit :
 	</p>
 	<ol class="squarelist mlm mbl">
 		<li>
-		   What personally identifiable information is collected from you through the web site.
+			Quelles sont les informations personnelles identifiables qui sont recueillies auprès de vous par le biais du site Web.
 		</li>
 		<li>
-		   How it is used and with whom it may be shared.
+			Comment elles sont utilisées et avec qui elles peuvent être partagées.
 		</li>
 		<li>
-		   What choices are available to you regarding the use of your data.
+			Les choix qui s'offrent à vous concernant l'utilisation de vos données.
 		</li>
 		<li>
-		   The security procedures in place to protect the misuse of your information.
+			Les procédures de sécurité en place pour protéger l'utilisation abusive de vos informations.
 		</li>
 		<li>
-		   How you can correct any inaccuracies in the information.
+			Comment vous pouvez corriger toute inexactitude dans les informations.
 		</li>
 	</ol>
 
 	<h2>
-		Information Collection, Use, and Sharing
+		Collecte, utilisation et partage des informations
 	</h2>
 	<p>
-		We are the sole owners of the information collected on this site. We only have access to/collect information that you voluntarily give us via our website, email or other direct contact from you. We will not sell or rent this information to anyone.
+		Nous sommes les seuls propriétaires des informations recueillies sur ce site. Nous n'avons accès qu'aux informations que vous nous donnez volontairement par le biais de notre site Web, d'un courrier électronique ou de tout autre contact direct avec vous. Nous ne vendrons ni ne louerons ces informations à quiconque.
 	</p>
 	<p>
-		We will use your information to respond to you, regarding the reason you contacted us. We will not share your information with any third party outside of our organization, other than as necessary to fulfill your request, e.g. to ship an order.
+		Nous utiliserons vos informations pour vous répondre, en fonction de la raison pour laquelle vous nous avez contactés. Nous ne partagerons pas vos informations avec des tiers en dehors de notre organisation, sauf si cela est nécessaire pour répondre à votre demande, par exemple pour expédier une commande.
 	</p>
 	<p>
-		Unless you ask us not to, we may contact you via email in the future to tell you about specials, new products or services, or changes to this privacy policy.
+		À moins que vous ne nous demandiez de ne pas le faire, il se peut que nous vous contactions par courrier électronique à l'avenir pour vous informer de nos offres spéciales, de nos nouveaux produits ou services, ou des modifications apportées à la présente politique de confidentialité.
 	</p>
 
 	<h2>
-		Your Access to and Control Over Information
+		Votre accès et votre contrôle sur les informations
 	</h2>
 	<p>
-		You may opt out of any future contacts from us at any time. You can do the following at any time by contacting us <a href="mailto:contact@scoold.com">via email</a>:
+		Vous pouvez choisir de ne plus être contacté par nous à tout moment. Vous pouvez faire ce qui suit à tout moment en nous contactant <a href="mailto:privacy@communaute.superindep.fr">par e-mail</a>:
 	</p>
 
 	<ol class="squarelist mlm mbl">
 		<li>
-			See what data we have about you, if any.
+			Voir quelles données nous possédons à votre sujet, le cas échéant.
 		</li>
 		<li>
-			Change/correct any data we have about you.
+			Modifier/corriger les données que nous détenons à votre sujet.
 		</li>
 		<li>
-			Have us delete any data we have about you.
+			Nous demander de supprimer les données que nous possédons à votre sujet.
 		</li>
 		<li>
-			Express any concern you have about our use of your data.
+			Exprimer toute préoccupation concernant l'utilisation que nous faisons de vos données.
 		</li>
 	</ol>
 
-	<h2>Security</h2>
+	<h2>Sécurité</h2>
 	<p>
-		We take precautions to protect your information. When you submit sensitive information via the website, your information is protected both online and offline.
+		Nous prenons des précautions pour protéger vos informations. Lorsque vous soumettez des informations sensibles via le site web, vos informations sont protégées à la fois en ligne et hors ligne.
 	</p>
 
 	<p>
-		While we use encryption to protect sensitive information transmitted online, we also protect your information offline. Only employees who need the information to perform a specific job (for example, billing or customer service) are granted access to personally identifiable information. The computers/servers in which we store personally identifiable information are kept in a secure environment.
+		Si nous utilisons le chiffrement pour protéger les informations sensibles transmises en ligne, nous protégeons également vos informations hors ligne. Seuls les employés qui ont besoin de ces informations pour effectuer un travail spécifique (par exemple, la facturation ou le service clientèle) ont accès aux informations permettant d'identifier les personnes. Les ordinateurs/serveurs dans lesquels nous stockons les informations personnelles identifiables sont conservés dans un environnement sécurisé.
 	</p>
 
-	<h2>Registration</h2>
+	<h2>Inscription</h2>
 	<p>
-		Registration for our website is optional. Registration allows users to upload content to our website. Users agree to our license (see the license block at the bottom of this page) when they register. Typically that means that all user contributed content can be copied far and wide, for commercial and non-commercial purposes, and in modified or unmodified form. If you're not OK with that, don't use the service.
+		L'inscription à notre site web est facultative. L'enregistrement permet aux utilisateurs de télécharger du contenu sur notre site web. Les utilisateurs acceptent notre licence (voir le bloc de licence au bas de cette page) lorsqu'ils s'inscrivent. En règle générale, cela signifie que tout le contenu fourni par les utilisateurs peut être copié à grande échelle, à des fins commerciales ou non, et sous une forme modifiée ou non. Si vous n'êtes pas d'accord avec cela, n'utilisez pas le service.
 	</p>
 	<p>
-		During registration a user is required to give certain information (such as name and email address). This information is used to contact you about the products/services on our site in which you have expressed interest. At your option, you may also provide demographic information (such as gender or age) about yourself, but it is not required. Your profile information (including your name and avatar) is public and can be downloaded and re-used by other services, either scraped from the HTML interface or in bulk as FOAF files.
+		Lors de son inscription, l'utilisateur doit fournir certaines informations (telles que son nom et son adresse électronique). Ces informations sont utilisées pour vous contacter au sujet des produits/services de notre site pour lesquels vous avez exprimé un intérêt. Si vous le souhaitez, vous pouvez également fournir des informations démographiques (telles que le sexe ou l'âge) vous concernant, mais ce n'est pas obligatoire. Les informations de votre profil (y compris votre nom et votre avatar) sont publiques et peuvent être téléchargées et réutilisées par d'autres services, soit à partir de l'interface HTML, soit en vrac sous forme de fichiers FOAF.
 	</p>
 
 	<h2>Cookies</h2>
 	<p>
-		We use "cookies" on this site. A cookie is a piece of data stored on a site visitor's hard drive to help us improve your access to our site and identify repeat visitors to our site. For instance, when we use a cookie to identify you, you would not have to log in a password more than once, thereby saving time while on our site. Cookies can also enable us to track and target the interests of our users to enhance the experience on our site. Usage of a cookie is in no way linked to any personally identifiable information on our site.
-	</p>
-	<p>
-		Some of our business partners may use cookies on our site (for example, advertisers). However, we have no access to or control over these cookies.
+		Nous utilisons des "cookies" sur ce site. Un cookie est un élément de données stocké sur le disque dur d'un visiteur du site pour nous aider à améliorer votre accès à notre site et à identifier les visiteurs réguliers de notre site. Par exemple, lorsque nous utilisons un cookie pour vous identifier, vous n'avez pas besoin de vous connecter plusieurs fois avec un mot de passe, ce qui vous fait gagner du temps sur notre site. Les cookies peuvent également nous permettre de suivre et de cibler les intérêts de nos utilisateurs afin d'améliorer leur expérience sur notre site. L'utilisation d'un cookie n'est en aucun cas liée à des informations personnelles identifiables sur notre site.
 	</p>
 
-	<h2>Sharing</h2>
+	<h2>Partage de l'information</h2>
 	<p>
-		We partner with another party to provide specific services. When the user signs up for these services, we will share names, or other contact information that is necessary for the third party to provide these services. These parties are not allowed to use personally identifiable information except for the purpose of providing these services.
+		L’email est une donnée privée qui ne sera pas partagée avec d'autres utilisateurs, des partenaires commerciaux ou le grand public.
 	</p>
 	<p>
-		The following data items are considered <strong>private data that won't be shared</strong> with other users, business partners, or the public at large:
-	</p>
-	<ol class="squarelist mlm mbm">
-		<li>
-			your email address
-		</li>
-		<li>
-			your phone number
-		</li>
-		<li>
-			your access tokens or credentials for other services
-		</li>
-	</ol>
-	<p>
-		Any other data you share on our website is considered public and is licensed under the specified license at the bottom of this page.
+		Toute autre donnée que vous partagez sur notre site web est considérée comme publique et fait l'objet de la licence spécifiée au bas de cette page, notamment votre pseudo (qui peut contenir vos nom et prénom à votre discrétion), votre localisation, votre site internet, la section “à propos de moi”, votre photo/image de profil et vos contributions (questions/réponses).
 	</p>
 
-	<h2>Links</h2>
+	<h2>Liens</h2>
 	<p>
-		This web site contains links to other sites. Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.
+		Ce site web contient des liens vers d'autres sites. Sachez que nous ne sommes pas responsables du contenu ou des pratiques de confidentialité de ces autres sites. Nous encourageons nos utilisateurs à être attentifs lorsqu'ils quittent notre site et à lire les déclarations de confidentialité de tout autre site qui collecte des informations personnellement identifiables.
 	</p>
-	#end
-	<div class="viewbox">
-		#if($privacyhtml)
-			#set($_privacy = $privacyhtml.getProperty('html'))
-			$_privacy
-		#else
-			#privacypage()
-		#end
 	</div>
-	#if($isAdmin)
-	<div class="row editbox hide">
-		<form method="post" class="col s12">
-			<div class="row">
-				<div class="input-field col s12">
-					<textarea id="privacypage" name="privacyhtml" class="simple-editor">
-						#if($privacyhtml)$privacyhtml.getProperty('html')#else#privacypage()#end
-					</textarea>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12 center-align">
-					<button type="submit" class="btn waves-effect waves-light mrl">$!lang.get('save')</button>
-					<button type="button" class="btn waves-effect waves-light canceledit">$!lang.get('cancel')</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	#end
 </div>
