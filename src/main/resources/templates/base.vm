@@ -1,37 +1,83 @@
 <!DOCTYPE html>
-<!-- Powered by            __    __
-     ____ ____ ___   ___  / /___/ /
-   / ___/ ___/ __ \/ __ \/ / __  /
-  (__  ) /__/ /_/ / /_/ / / /_/ /
- /____/\___/\____/\____/_/\__,_/  https://scoold.com
--->
-<html lang="$!currentLocale.language" dir="$!langDirection">
+<html lang="fr" itemscope itemtype="http://schema.org/WebPage">
 	<head>
-		<title>$!APPNAME | $!title</title>
 		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="white">
-		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
+
+		<title>$!title | La communauté de Superindep.fr</title>
 		<meta name="description" content="$!description">
 		<meta name="keywords" content="$!keywords">
 		<meta name="generator" content="Scoold">
-		<meta property="fb:app_id" content="$!FB_APP_ID">
-		<meta property="og:title" content="$!title">
-		<meta property="og:type" content="article">
-		<meta property="og:url" content="$!request.getRequestURL()">
-		<meta property="og:image" content="$!ogimage">
+
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "WebSite",
+				"name": "La communauté de Superindep.fr",
+				"url": "https://communaute.superindep.fr/",
+				"inLanguage":"fr-FR"
+			}
+		</script>
+		<script type="application/ld+json">
+			{
+				"@context": "http://schema.org",
+				"@type": "Organization",
+				"name": "SuperIndep",
+				"url": "https://www.superindep.fr/",
+				"logo": "https://www.superindep.fr/images/logo.png",
+				"sameAs": [
+					"https://twitter.com/Superindep_fr",
+					"https://www.facebook.com/SuperIndep/",
+					"https://www.linkedin.com/company/superindep",
+					"https://www.youtube.com/channel/UCK4JRGepvgj1JecbQSJN61g",
+					"https://www.instagram.com/superindep.fr/"
+				]
+			}
+		</script>
+
+		<meta property="og:title" content="$!title | La communauté de Superindep.fr" />
 		<meta property="og:description" content="$!description">
-		<meta name="twitter:card" content="summary">
-		<meta name="twitter:site" content="@getscoold">
-		<meta name="twitter:title" content="$!title">
+		<meta property="og:image" content="https://communaute.superindep.com/images/social.png" />
+		<meta property="og:url" content="$!request.getRequestURL()" />
+		<meta property="og:type" content="article" />
+
+		<meta name="twitter:title" content="$!title | La communauté de Superindep.fr" />
 		<meta name="twitter:description" content="$!description">
-		<meta name="twitter:image" content="$!ogimage">
-		<link rel="manifest" href="$!{CONTEXT_PATH}/manifest.webmanifest">
-		<link href="$!{CONTEXT_PATH}/opensearch.xml" title="$!APPNAME" type="application/opensearchdescription+xml" rel="search">
+		<meta name="twitter:image" content="https://communaute.superindep.com/images/social.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@Superindep_fr" />
+		<meta name="twitter:creator" content="@Superindep_fr" />
+
+		<meta itemprop="name" content="$!title | La communauté de Superindep.fr" />
+		<meta itemprop="url" content="$!request.getRequestURL()" />
+		<meta itemprop="thumbnailUrl" content="https://communaute.superindep.com/images/social.png" />
+
+		<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/android-chrome-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#1e0f68">
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="theme-color" content="#1e0f68">
+
+		<link rel="canonical" href="$!request.getRequestURL()">
+
+		<link href="$!{CONTEXT_PATH}/opensearch.xml" title="La communauté de Superindep.fr" type="application/opensearchdescription+xml" rel="search">
 		<link href="$!{CONTEXT_PATH}/feed.xml" rel="alternate" type="application/atom+xml" title="New questions feed">
 		<link href="$!ogimage" rel="image_src">
 		<link href="$!ogimage" rel="apple-touch-icon">
-		<link href="$!faviconUrl" rel="icon" sizes="any">
+		<link href="$!faviconUrl" rel="shortcut icon">
 		<link href="$!styleslink/materialize.min.css?r=$!rev" rel="stylesheet">
 		<link href="$!styleslink/font-awesome.min.css?r=$!rev" rel="stylesheet">
 		<link href="$!styleslink/easymde.min.css?r=$!rev" rel="stylesheet">
@@ -194,7 +240,7 @@
 
 							<div class="brand-logo">
 								<a href="$!{CONTEXT_PATH}/">
-									<img src="$logoUrl" class="scoold-logo" width="$logoWidth" alt="scoold logo">
+									<img src="/images/logo-header.png" class="scoold-logo" width="328" height="66" alt="Superindep logo">
 								</a>
 							</div>
 
@@ -362,49 +408,49 @@
 
 			<footer class="page-footer">
 				<div class="container">
-					<div class="row mbn">
-						<div class="col l7 s12 sTextCenter">
-							<div class="pvl">
-								#set($_footerHTML = $!scooldUtils.getFooterHTML())
-								$!_footerHTML
-								#if($scooldUtils.isFooterLinksEnabled())
-								<a href="$aboutlink" title="$!lang.get('about.title')">$!lang.get('about.title')</a>&nbsp;&nbsp;
-								#if($scooldUtils.isFeedbackEnabled())
-								<a href="$feedbacklink" title="$!lang.get('feedback.title')">$!lang.get('feedback.title')</a>&nbsp;&nbsp;
-								#end
-								<a href="$privacylink" title="$!lang.get('privacy.title')">$!lang.get('privacy.title')</a>&nbsp;&nbsp;
-								<a href="$termslink" title="$!lang.get('terms.title')">$!lang.get('terms.title')</a>&nbsp;&nbsp;
-								#if($scooldUtils.isApiEnabled())
-								<a href="$apidocslink" title="API docs">API</a>
-								#end
-								#end
-							</div>
-						</div>
-						<div class="col l5 s12 sTextCenter mtm right-align">
-							<a href="$!languageslink" title="Switch to a different language" class="btn-flat grey capitalize">
-								$!currentLocale.getDisplayLanguage($currentLocale)
-							</a>
-						</div>
+					<div class="row footer-links">
+                        <div class="footer-linksBlock col m3 s12">
+                            <h5 class="white-text">Applications</h5>
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr">Déclarations</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr/facturation.html">Facturation</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-linksBlock col m3 s12">
+                            <h5 class="white-text">Média</h5>
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr/blog/">Blog</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://twitter.com/Superindep_fr">Twitter</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.facebook.com/SuperIndep/">Facebook</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.linkedin.com/company/superindep">LinkedIn</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.youtube.com/channel/UCK4JRGepvgj1JecbQSJN61g">Youtube</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://g.page/r/CTMiKEMaRFMnEBA">Google Business</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.instagram.com/superindep.fr/">Instagram</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://fr.trustpilot.com/review/superindep.fr">Avis Truspilot</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-linksBlock col m3 s12">
+                            <h5 class="white-text">En savoir plus</h5>
+                            <ul>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr/nous-soutenir.html">Nous soutenir</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr/partenaires.html">Partenaires</a></li>
+                                <li><a class="grey-text text-lighten-3" href="https://www.superindep.fr/offres.html">Nos offres</a></li>
+                                <li><a class="grey-text text-lighten-3" href="$aboutlink">A propos</a></li>
+                                <li><a class="grey-text text-lighten-3" href="$privacylink">Politique de confidentialité</a></li>
+                                <li><a class="grey-text text-lighten-3" href="$termslink">Conditions d'utilisation</a></li>
+                            </ul>
+                        </div>
 					</div>
 				</div>
-				#if($showBranding)
-				<div>
+				<div class="footer-copyright">
 					<div class="container">
 						<div class="row mbn">
-							<div class="col l6 s12 sTextCenter">
-								#set($_liclink = $utils.formatMessage("$!lang.get('license')",
-								'<a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons</a>') )
-								<i class="fa fa-creative-commons"></i> $_liclink
-							</div>
-							<div class="col l6 s12 sTextCenter right-align">
-								<span>This website is powered by <a href="https://scoold.com"><b>Scoold</b></a> and <a href="https://paraio.com">
-									<img src="$imageslink/paradark.svg" width="60" alt="Para logo" class="para-logo-footer"></a>
-								</span>
+							<div class="col l12 s12 sTextCenter">
+                                Design du site et logo © Superindep; Contributions utilisateurs sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA</a>
 							</div>
 						</div>
 					</div>
 				</div>
-				#end
 			</footer>
 		</div>
 
