@@ -10,7 +10,7 @@
 		<meta name="keywords" content="$!KEYWORDS">
 		<meta name="generator" content="Scoold">
 
-		<script type="application/ld+json">
+		<script type="application/ld+json" nonce="$cspNonce">
 			{
 				"@context": "http://schema.org",
 				"@type": "WebSite",
@@ -19,7 +19,7 @@
 				"inLanguage":"fr-FR"
 			}
 		</script>
-		<script type="application/ld+json">
+		<script type="application/ld+json" nonce="$cspNonce">
 			{
 				"@context": "http://schema.org",
 				"@type": "Organization",
