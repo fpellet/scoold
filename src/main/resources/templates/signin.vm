@@ -196,6 +196,14 @@
 
 						<div class="row">
 							<div class="col s12 m12 l8 offset-l2 center">
+								<div class="mvl pvs">
+									<a href="$signinlink/register" class="btn-large signin-bigButton signin-bigButton--register">
+										<i class="fa fa-user left"></i> $!lang.get('signup.title')
+									</a>
+								</div>
+
+								<hr style="width: 50%" />
+
 								#if($fbLoginEnabled)
 								<div class="mvl pvs">
 									<a id="fb-login-btn" href="#" class="btn-large indigo lighten-1 truncate">
@@ -265,7 +273,7 @@
 
 								#if($oa2LoginEnabled)
 									<div class="mvl pvs">
-										<a id="oa2-login-btn" href="$!scooldUtils.oAuth2LoginURL" class="btn-large grey darken-2 truncate">
+										<a id="oa2-login-btn" href="$!scooldUtils.oAuth2LoginURL" class="btn-large grey darken-2 signin-bigButton">
 											<i class="fa fa-sign-in left"></i> $!oa2LoginProvider
 										</a>
 									</div>
