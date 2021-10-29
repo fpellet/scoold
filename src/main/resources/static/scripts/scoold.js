@@ -524,43 +524,55 @@ $(function () {
      *                    PROFILE
      ****************************************************/
 
-	var profilePic = $("img.profile-pic.on-profile-page");
-	var navbarPic = $("img.profile-pic:first");
-	var pictureUrlInput = $("#picture_url");
-	var pictureEditForm = pictureUrlInput.closest("form");
+	var profileAvatar = $("img.profile-pic.on-profile-page");
+	var navbarAvatar = $("img.profile-pic:first");
+	var avatarUrlInput = $("#picture_url");
+	var avatarCustomUrlBlock = $("#avatar_custom_url_block");
+	var avatarEditForm = avatarUrlInput.closest("form");
+	var defaultAvatar = $("#avatar_default_url").val();
 
 	function changeAvatars(newPicValue) {
-		if (navbarPic.attr("src") === profilePic.attr("src")) {
-			navbarPic.attr("src", newPicValue);
+		avatarUrlInput.val(newPicValue);
+
+		if (navbarAvatar.attr("src") === profileAvatar.attr("src")) {
+			navbarAvatar.attr("src", newPicValue);
 		}
-		profilePic.attr("src", newPicValue);
+		profileAvatar.attr("src", newPicValue);
+	}
+
+	function changeAvatarAndSubmit(newValue) {
+		setTimeout(function () {
+			changeAvatars(newValue);
+			$.post(avatarEditForm.attr("action"), {picture: newValue});
+		}, 200);
+	}
+
+	$("#avatar_custom_url").on('focusout paste', function () {
+		$("#use-gravatar-switch").prop('checked', false).trigger("change");
+	});
+
+	function updateAvatarFormDisplay() {
+		if($("#use-gravatar-switch").prop('checked')) {
+			avatarCustomUrlBlock.css({display: 'none', visibility: 'collapse'});
+		} else {
+			avatarCustomUrlBlock.css({display: 'block', visibility: 'visible'});
+		}
 	}
 
 	$("#use-gravatar-switch").change(function () {
-		var dis = $(this);
-		var newPic = pictureUrlInput.next("input[type=hidden]");
-		var newPicValue = newPic.val();
-		changeAvatars(newPicValue);
-		$.post(dis.closest("form").attr("action"), {picture: newPicValue});
-		// swap
-		newPic.val(pictureUrlInput.val());
-		pictureUrlInput.val(newPicValue);
-	});
+		var rthis = $(this);
+		if(rthis.prop('checked')) {
+			changeAvatarAndSubmit($("#avatar_gravatar_url").val());
+		} else {
+			changeAvatarAndSubmit($("#avatar_custom_url").val() || defaultAvatar);
+		}
 
-	pictureUrlInput.on('focusout paste', function () {
-		var dis = $(this);
-		setTimeout(function () {
-			changeAvatars(dis.val());
-			$.post(pictureEditForm.attr("action"), {picture: dis.val()});
-		}, 200);
+		updateAvatarFormDisplay();
 	});
+	updateAvatarFormDisplay();
 
 	$("#clear-avatar-btn").click(function () {
-		var defaultAvatar = window.location.origin + CONTEXT_PATH + "/people/avatar";
-		changeAvatars(defaultAvatar);
-		pictureUrlInput.val(defaultAvatar);
-		$.post($(this).closest("form").attr("action"), {picture: defaultAvatar});
-		$("#use-gravatar-switch").removeAttr("checked");
+		changeAvatarAndSubmit(defaultAvatar);
 		return false;
 	});
 

@@ -49,6 +49,11 @@ import com.erudika.scoold.core.Revision;
 import com.erudika.scoold.core.UnapprovedQuestion;
 import com.erudika.scoold.core.UnapprovedReply;
 import static com.erudika.scoold.utils.HttpUtils.getCookieValue;
+
+import com.erudika.scoold.utils.avatars.AvatarFormat;
+import com.erudika.scoold.utils.avatars.AvatarRepository;
+import com.erudika.scoold.utils.avatars.AvatarRepositoryProxy;
+import com.erudika.scoold.utils.avatars.GravatarAvatarGenerator;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -115,7 +120,6 @@ public final class ScooldUtils {
 	private static final Set<String> ADMINS = new HashSet<>();
 	private static final String EMAIL_ALERTS_PREFIX = "email-alerts" + Config.SEPARATOR;
 
-	private static final Profile API_USER;
 	private static final Set<String> CORE_TYPES;
 	private static final Set<String> HOOK_EVENTS;
 	private static final Map<String, String> WHITELISTED_MACROS;
@@ -124,13 +128,6 @@ public final class ScooldUtils {
 	private List<Sysprop> allSpaces;
 
 	static {
-		API_USER = new Profile("1", "System");
-		API_USER.setVotes(1);
-		API_USER.setCreatorid("1");
-		API_USER.setTimestamp(Utils.timestamp());
-		API_USER.setPicture(getGravatar(Config.SUPPORT_EMAIL));
-		API_USER.setGroups(User.Groups.ADMINS.toString());
-
 		CORE_TYPES = new HashSet<>(Arrays.asList(Utils.type(Comment.class),
 				Utils.type(Feedback.class),
 				Utils.type(Profile.class),
@@ -175,15 +172,27 @@ public final class ScooldUtils {
 		WHITELISTED_MACROS.put("tags", "#tagspage($tagslist)");
 	}
 
+	private final Profile apiUser;
 	private ParaClient pc;
 	private LanguageUtils langutils;
+	private final AvatarRepository avatarRepository;
+	private final GravatarAvatarGenerator gravatarAvatarGenerator;
 	private static ScooldUtils instance;
 	@Inject private Emailer emailer;
 
 	@Inject
-	public ScooldUtils(ParaClient pc, LanguageUtils langutils) {
+	public ScooldUtils(ParaClient pc, LanguageUtils langutils, AvatarRepositoryProxy avatarRepository, GravatarAvatarGenerator gravatarAvatarGenerator) {
 		this.pc = pc;
 		this.langutils = langutils;
+		this.avatarRepository = avatarRepository;
+		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
+
+		apiUser = new Profile("1", "System");
+		apiUser.setVotes(1);
+		apiUser.setCreatorid("1");
+		apiUser.setTimestamp(Utils.timestamp());
+		apiUser.setPicture(avatarRepository.getAnonymizedLink(Config.SUPPORT_EMAIL));
+		apiUser.setGroups(User.Groups.ADMINS.toString());
 	}
 
 	public ParaClient getParaClient() {
@@ -281,13 +290,13 @@ public final class ScooldUtils {
 		}
 		String apiKeyJWT = StringUtils.removeStart(req.getHeader(HttpHeaders.AUTHORIZATION), "Bearer ");
 		if (req.getRequestURI().equals(CONTEXT_PATH + "/api/ping")) {
-			return API_USER;
+			return apiUser;
 		} else if (req.getRequestURI().equals(CONTEXT_PATH + "/api/stats") && isValidJWToken(apiKeyJWT)) {
-			return API_USER;
+			return apiUser;
 		} else if (!isApiEnabled() || StringUtils.isBlank(apiKeyJWT) || !isValidJWToken(apiKeyJWT)) {
 			throw new WebApplicationException(401);
 		}
-		return API_USER;
+		return apiUser;
 	}
 
 	private boolean promoteOrDemoteUser(Profile authUser, User u) {
@@ -328,7 +337,7 @@ public final class ScooldUtils {
 	private boolean updateProfilePictureAndName(Profile authUser, User u) {
 		boolean update = false;
 		if (!StringUtils.equals(u.getPicture(), authUser.getPicture())
-				&& !StringUtils.contains(authUser.getPicture(), "gravatar.com")
+				&& !gravatarAvatarGenerator.isLink(authUser.getPicture())
 				&& !Config.getConfigBoolean("avatar_edits_enabled", true)) {
 			authUser.setPicture(u.getPicture());
 			update = true;
@@ -584,7 +593,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = postAuthor.getName();
 			String body = Utils.markdownToHtml(question.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(postAuthor.getPicture()));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(postAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + question.getPostLink(false, false);
 			String tagsString = Optional.ofNullable(question.getTags()).orElse(Collections.emptyList()).stream().
 					map(t -> "<span class=\"tag\">" +
@@ -619,7 +628,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = postAuthor.getName();
 			String body = Utils.markdownToHtml(question.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(postAuthor.getPicture()));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(postAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + question.getPostLink(false, false);
 			String tagsString = Optional.ofNullable(question.getTags()).orElse(Collections.emptyList()).stream().
 					map(t -> "<span class=\"tag\">" + escapeHtml(t) + "</span>").
@@ -653,7 +662,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = replyAuthor.getName();
 			String body = Utils.markdownToHtml(reply.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(replyAuthor.getPicture()));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(replyAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + parentPost.getPostLink(false, false);
 			String subject = Utils.formatMessage(lang.get("notification.reply.subject"), name,
 					Utils.abbreviate(reply.getTitle(), 255));
@@ -712,7 +721,8 @@ public final class ScooldUtils {
 					Map<String, Object> model = new HashMap<String, Object>();
 					String name = commentAuthor.getName();
 					String body = Utils.markdownToHtml(comment.getComment());
-					String pic = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(commentAuthor.getPicture()));
+					String pic = Utils.formatMessage("<img src='{0}' width='25'>",
+						escapeHtmlAttribute(avatarRepository.getLink(commentAuthor, AvatarFormat.Square25)));
 					String postURL = getServerURL() + parentPost.getPostLink(false, false);
 					String subject = Utils.formatMessage(lang.get("notification.comment.subject"), name, parentPost.getTitle());
 					model.put("subject", escapeHtml(subject));
@@ -813,10 +823,6 @@ public final class ScooldUtils {
 
 	public boolean isAvatarValidationEnabled() {
 		return Config.getConfigBoolean("avatar_validation_enabled", false); // this should be deleted in the future
-	}
-
-	public static boolean isGravatarEnabled() {
-		return Config.getConfigBoolean("gravatars_enabled", true);
 	}
 
 	public String getFooterHTML() {
@@ -959,7 +965,7 @@ public final class ScooldUtils {
 			authors.put(author.getId(), (Profile) author);
 		}
 		// add system profile
-		authors.put(API_USER.getId(), API_USER);
+		authors.put(apiUser.getId(), apiUser);
 		// set author object for each post
 		for (ParaObject obj : objects) {
 			if (obj instanceof Post) {
@@ -1432,33 +1438,8 @@ public final class ScooldUtils {
 		return error;
 	}
 
-	public static String getGravatar(String email) {
-		if (!isGravatarEnabled()) {
-			return getServerURL() + CONTEXT_PATH +  PEOPLELINK + "/avatar";
-		}
-		if (StringUtils.isBlank(email)) {
-			return "https://www.gravatar.com/avatar?d=retro&size=400";
-		}
-		return "https://www.gravatar.com/avatar/" + Utils.md5(email.toLowerCase()) + "?size=400&d=retro";
-	}
-
-	public static String getGravatar(Profile profile) {
-		if (!isGravatarEnabled()) {
-			return getServerURL() + CONTEXT_PATH +  PEOPLELINK + "/avatar";
-		}
-		if (profile == null || profile.getUser() == null) {
-			return "https://www.gravatar.com/avatar?d=retro&size=400";
-		} else {
-			return getGravatar(profile.getUser().getEmail());
-		}
-	}
-
-	public String getFullAvatarURL(Profile profile) {
-		if (profile == null) {
-			return getGravatar("");
-		}
-		return isAvatarValidationEnabled() ? PEOPLELINK + "/avatar?url=" + Utils.urlEncode(profile.getPicture()) :
-				profile.getPicture();
+	public String getFullAvatarURL(Profile profile, AvatarFormat format) {
+		return avatarRepository.getLink(profile, format);
 	}
 
 	public void clearSession(HttpServletRequest req, HttpServletResponse res) {
@@ -1664,7 +1645,7 @@ public final class ScooldUtils {
 	}
 
 	public Profile getSystemUser() {
-		return API_USER;
+		return apiUser;
 	}
 
 	public void triggerHookEvent(String eventName, Object payload) {

@@ -33,6 +33,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.erudika.scoold.utils.avatars.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,10 +58,16 @@ import java.util.ArrayList;
 public class ProfileController {
 
 	private final ScooldUtils utils;
+	private final GravatarAvatarGenerator gravatarAvatarGenerator;
+	private final AvatarRepository avatarRepository;
+	private final AvatarConfig avatarConfig;
 
 	@Inject
-	public ProfileController(ScooldUtils utils) {
+	public ProfileController(ScooldUtils utils, GravatarAvatarGenerator gravatarAvatarGenerator, AvatarRepositoryProxy avatarRepository, AvatarConfig avatarConfig) {
 		this.utils = utils;
+		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
+		this.avatarRepository = avatarRepository;
+		this.avatarConfig = avatarConfig;
 	}
 
 	@GetMapping({"", "/{id}/**"})
@@ -99,14 +107,18 @@ public class ProfileController {
 		model.addAttribute("path", "profile.vm");
 		model.addAttribute("title", utils.getLang(req).get("profile.title") + " - " + showUser.getName());
 		model.addAttribute("description", getUserDescription(showUser, itemcount1.getCount(), itemcount2.getCount()));
-		model.addAttribute("ogimage", showUser.getPicture());
+		model.addAttribute("ogimage", avatarRepository.getLink(showUser, AvatarFormat.Profile));
 		model.addAttribute("includeGMapsScripts", utils.isNearMeFeatureEnabled());
 		model.addAttribute("showUser", showUser);
+		model.addAttribute("isGravatarEnabled", avatarConfig.isGravatarEnabled());
 		model.addAttribute("isMyProfile", isMyProfile);
 		model.addAttribute("badgesCount", showUser.getBadgesMap().size());
 		model.addAttribute("canEdit", isMyProfile || canEditProfile(authUser, id));
 		model.addAttribute("canEditAvatar", Config.getConfigBoolean("avatar_edits_enabled", true));
-		model.addAttribute("gravatarPicture", utils.getGravatar(showUser));
+		model.addAttribute("gravatarPicture", gravatarAvatarGenerator.getLink(showUser, AvatarFormat.Profile));
+		model.addAttribute("isGravatarPicture", gravatarAvatarGenerator.isLink(showUser.getPicture()));
+		model.addAttribute("isCustomAvatarLinkEnabled", avatarConfig.isCustomLinkEnabled());
+		model.addAttribute("defaultAvatar", avatarConfig.getDefaultAvatar());
 		model.addAttribute("itemcount1", itemcount1);
 		model.addAttribute("itemcount2", itemcount2);
 		model.addAttribute("questionslist", questionslist);
@@ -161,10 +173,8 @@ public class ProfileController {
 				showUser.setAboutme(aboutme);
 				updateProfile = true;
 			}
-			if (Config.getConfigBoolean("avatar_edits_enabled", true) ||
-					Config.getConfigBoolean("name_edits_enabled", true)) {
-				updateProfile = updateUserPictureAndName(showUser, picture, name);
-			}
+
+			updateProfile = updateUserPictureAndName(showUser, picture, name) || updateProfile;
 
 			boolean isComplete = showUser.isComplete() && isMyid(authUser, showUser.getId());
 			if (updateProfile || utils.addBadgeOnce(showUser, Badge.NICEPROFILE, isComplete)) {
@@ -186,15 +196,14 @@ public class ProfileController {
 		boolean updateProfile = false;
 		boolean updateUser = false;
 		User u = showUser.getUser();
+
 		if (Config.getConfigBoolean("avatar_edits_enabled", true) &&
-				!StringUtils.isBlank(picture) && (Utils.isValidURL(picture) || picture.startsWith("data:"))) {
-			showUser.setPicture(picture);
-			if (!u.getPicture().equals(picture) && !picture.contains("gravatar.com")) {
-				u.setPicture(picture);
-				updateUser = true;
-			}
-			updateProfile = true;
+				!StringUtils.isBlank(picture)) {
+			AvatarStorageResult result = avatarRepository.store(showUser, picture);
+			updateProfile = result.isProfileChanged();
+			updateUser = result.isUserChanged();
 		}
+
 		if (Config.getConfigBoolean("name_edits_enabled", true) && !StringUtils.isBlank(name)) {
 			showUser.setName(name);
 			if (StringUtils.isBlank(showUser.getOriginalName())) {
@@ -206,6 +215,7 @@ public class ProfileController {
 			}
 			updateProfile = true;
 		}
+
 		if (updateUser) {
 			utils.getParaClient().update(u);
 		}
