@@ -3,11 +3,11 @@ package com.erudika.scoold.utils.avatars;
 import com.erudika.scoold.core.Profile;
 import org.apache.commons.lang3.StringUtils;
 
-public class GravatarAvatarRepository implements AvatarRepository {
+public class GravatarAvatarProvider implements AvatarProvider {
 	private final GravatarAvatarGenerator gravatarAvatarGenerator;
-	private final AvatarRepository nextRepository;
+	private final AvatarProvider nextRepository;
 
-	public GravatarAvatarRepository(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarRepository nextRepository) {
+	public GravatarAvatarProvider(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarProvider nextRepository) {
 		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
 		this.nextRepository = nextRepository;
 	}

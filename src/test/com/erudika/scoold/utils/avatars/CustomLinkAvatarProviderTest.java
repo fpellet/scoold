@@ -8,9 +8,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class CustomLinkAvatarRepositoryTest {
-	private CustomLinkAvatarRepository repository;
-	private AvatarRepository defaultRepository;
+public class CustomLinkAvatarProviderTest {
+	private CustomLinkAvatarProvider repository;
+	private AvatarProvider defaultRepository;
 	private Profile profile;
 	private GravatarAvatarGenerator gravatarGenerator;
 	private AvatarConfig config;
@@ -20,9 +20,9 @@ public class CustomLinkAvatarRepositoryTest {
 		this.config = mock(AvatarConfig.class);
 		this.profile = new Profile();
 		this.profile.setUser(new User());
-		this.defaultRepository = new DefaultAvatarRepository(this.config);
+		this.defaultRepository = new DefaultAvatarProvider(this.config);
 		this.gravatarGenerator = new GravatarAvatarGenerator(config);
-		this.repository = new CustomLinkAvatarRepository(gravatarGenerator, config, defaultRepository);
+		this.repository = new CustomLinkAvatarProvider(gravatarGenerator, config, defaultRepository);
 	}
 
 	@Test
@@ -109,8 +109,8 @@ public class CustomLinkAvatarRepositoryTest {
 
 	@Test
 	public void getAnonymizedLink_should_use_default_repository() {
-		AvatarRepository defaultRepository = mock(AvatarRepository.class);
-		AvatarRepository repository = new CustomLinkAvatarRepository(gravatarGenerator, config, defaultRepository);
+		AvatarProvider defaultRepository = mock(AvatarProvider.class);
+		AvatarProvider repository = new CustomLinkAvatarProvider(gravatarGenerator, config, defaultRepository);
 		when(defaultRepository.getAnonymizedLink("A")).thenReturn("https://avatar");
 
 		String avatar = repository.getAnonymizedLink("A");

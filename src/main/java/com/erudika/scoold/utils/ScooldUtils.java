@@ -51,8 +51,8 @@ import com.erudika.scoold.core.UnapprovedReply;
 import static com.erudika.scoold.utils.HttpUtils.getCookieValue;
 
 import com.erudika.scoold.utils.avatars.AvatarFormat;
-import com.erudika.scoold.utils.avatars.AvatarRepository;
-import com.erudika.scoold.utils.avatars.AvatarRepositoryProxy;
+import com.erudika.scoold.utils.avatars.AvatarProvider;
+import com.erudika.scoold.utils.avatars.AvatarProviderProxy;
 import com.erudika.scoold.utils.avatars.GravatarAvatarGenerator;
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSAlgorithm;
@@ -175,16 +175,16 @@ public final class ScooldUtils {
 	private final Profile apiUser;
 	private ParaClient pc;
 	private LanguageUtils langutils;
-	private final AvatarRepository avatarRepository;
+	private final AvatarProvider avatarProvider;
 	private final GravatarAvatarGenerator gravatarAvatarGenerator;
 	private static ScooldUtils instance;
 	@Inject private Emailer emailer;
 
 	@Inject
-	public ScooldUtils(ParaClient pc, LanguageUtils langutils, AvatarRepositoryProxy avatarRepository, GravatarAvatarGenerator gravatarAvatarGenerator) {
+	public ScooldUtils(ParaClient pc, LanguageUtils langutils, AvatarProviderProxy avatarRepository, GravatarAvatarGenerator gravatarAvatarGenerator) {
 		this.pc = pc;
 		this.langutils = langutils;
-		this.avatarRepository = avatarRepository;
+		this.avatarProvider = avatarRepository;
 		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
 
 		apiUser = new Profile("1", "System");
@@ -593,7 +593,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = postAuthor.getName();
 			String body = Utils.markdownToHtml(question.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(postAuthor, AvatarFormat.Square25)));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarProvider.getLink(postAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + question.getPostLink(false, false);
 			String tagsString = Optional.ofNullable(question.getTags()).orElse(Collections.emptyList()).stream().
 					map(t -> "<span class=\"tag\">" +
@@ -628,7 +628,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = postAuthor.getName();
 			String body = Utils.markdownToHtml(question.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(postAuthor, AvatarFormat.Square25)));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarProvider.getLink(postAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + question.getPostLink(false, false);
 			String tagsString = Optional.ofNullable(question.getTags()).orElse(Collections.emptyList()).stream().
 					map(t -> "<span class=\"tag\">" + escapeHtml(t) + "</span>").
@@ -662,7 +662,7 @@ public final class ScooldUtils {
 			Map<String, String> lang = getLang(req);
 			String name = replyAuthor.getName();
 			String body = Utils.markdownToHtml(reply.getBody());
-			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarRepository.getLink(replyAuthor, AvatarFormat.Square25)));
+			String picture = Utils.formatMessage("<img src='{0}' width='25'>", escapeHtmlAttribute(avatarProvider.getLink(replyAuthor, AvatarFormat.Square25)));
 			String postURL = getServerURL() + parentPost.getPostLink(false, false);
 			String subject = Utils.formatMessage(lang.get("notification.reply.subject"), name,
 					Utils.abbreviate(reply.getTitle(), 255));
@@ -722,7 +722,7 @@ public final class ScooldUtils {
 					String name = commentAuthor.getName();
 					String body = Utils.markdownToHtml(comment.getComment());
 					String pic = Utils.formatMessage("<img src='{0}' width='25'>",
-						escapeHtmlAttribute(avatarRepository.getLink(commentAuthor, AvatarFormat.Square25)));
+						escapeHtmlAttribute(avatarProvider.getLink(commentAuthor, AvatarFormat.Square25)));
 					String postURL = getServerURL() + parentPost.getPostLink(false, false);
 					String subject = Utils.formatMessage(lang.get("notification.comment.subject"), name, parentPost.getTitle());
 					model.put("subject", escapeHtml(subject));
@@ -1439,7 +1439,7 @@ public final class ScooldUtils {
 	}
 
 	public String getFullAvatarURL(Profile profile, AvatarFormat format) {
-		return avatarRepository.getLink(profile, format);
+		return avatarProvider.getLink(profile, format);
 	}
 
 	public void clearSession(HttpServletRequest req, HttpServletResponse res) {

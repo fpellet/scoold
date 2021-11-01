@@ -31,8 +31,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.erudika.scoold.utils.avatars.AvatarRepository;
-import com.erudika.scoold.utils.avatars.AvatarRepositoryProxy;
+import com.erudika.scoold.utils.avatars.AvatarProvider;
+import com.erudika.scoold.utils.avatars.AvatarProviderProxy;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,12 +53,12 @@ import java.util.List;
 public class SettingsController {
 
 	private final ScooldUtils utils;
-	private final AvatarRepository avatarRepository;
+	private final AvatarProvider avatarProvider;
 
 	@Inject
-	public SettingsController(ScooldUtils utils, AvatarRepositoryProxy avatarRepository) {
+	public SettingsController(ScooldUtils utils, AvatarProviderProxy avatarRepository) {
 		this.utils = utils;
-		this.avatarRepository = avatarRepository;
+		this.avatarProvider = avatarRepository;
 	}
 
 	@GetMapping
@@ -182,7 +182,7 @@ public class SettingsController {
 	private void anonymizeProfile(Profile authUser) {
 		authUser.setName("Anonymous");
 		authUser.setOriginalPicture(authUser.getPicture());
-		authUser.setPicture(avatarRepository.getAnonymizedLink(authUser.getId() + "@scooldemail.com"));
+		authUser.setPicture(avatarProvider.getAnonymizedLink(authUser.getId() + "@scooldemail.com"));
 		authUser.setAnonymityEnabled(true);
 	}
 

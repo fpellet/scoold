@@ -4,14 +4,13 @@ import com.erudika.para.core.User;
 import com.erudika.scoold.core.Profile;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentMatchers;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AvatarRepositoryProxyTest {
+public class AvatarProviderProxyTest {
 	private GravatarAvatarGenerator gravatarAvatarGeneratorFake;
 	private Profile profile;
 
@@ -28,7 +27,7 @@ public class AvatarRepositoryProxyTest {
 		when(config.getDefaultAvatar()).thenReturn("/default_avatar");
 		when(config.isGravatarEnabled()).thenReturn(true);
 		when(config.isCustomLinkEnabled()).thenReturn(true);
-		AvatarRepository repository = new AvatarRepositoryProxy(gravatarAvatarGeneratorFake, config);
+		AvatarProvider repository = new AvatarProviderProxy(gravatarAvatarGeneratorFake, config);
 
 		when(gravatarAvatarGeneratorFake.getRawLink("A")).thenReturn("https://gravatarA");
 		String result = repository.getAnonymizedLink("A");
@@ -46,7 +45,7 @@ public class AvatarRepositoryProxyTest {
 
 		profile.setPicture("bad:avatar");
 		String defaultLink = repository.getLink(profile, AvatarFormat.Profile);
-		assertEquals(new DefaultAvatarRepository(config).getLink(profile, AvatarFormat.Profile), defaultLink);
+		assertEquals(new DefaultAvatarProvider(config).getLink(profile, AvatarFormat.Profile), defaultLink);
 	}
 
 	@Test
@@ -54,7 +53,7 @@ public class AvatarRepositoryProxyTest {
 		AvatarConfig config = mock(AvatarConfig.class);
 		when(config.isGravatarEnabled()).thenReturn(false);
 		when(config.isCustomLinkEnabled()).thenReturn(true);
-		AvatarRepository repository = new AvatarRepositoryProxy(gravatarAvatarGeneratorFake, config);
+		AvatarProvider repository = new AvatarProviderProxy(gravatarAvatarGeneratorFake, config);
 
 		when(gravatarAvatarGeneratorFake.getRawLink("A")).thenReturn("https://gravatarA");
 		String result = repository.getAnonymizedLink("A");
@@ -67,7 +66,7 @@ public class AvatarRepositoryProxyTest {
 		when(config.getDefaultAvatar()).thenReturn("/default_avatar");
 		when(config.isGravatarEnabled()).thenReturn(true);
 		when(config.isCustomLinkEnabled()).thenReturn(false);
-		AvatarRepository repository = new AvatarRepositoryProxy(gravatarAvatarGeneratorFake, config);
+		AvatarProvider repository = new AvatarProviderProxy(gravatarAvatarGeneratorFake, config);
 
 		when(gravatarAvatarGeneratorFake.getRawLink("A")).thenReturn("https://gravatarA");
 		String result = repository.getAnonymizedLink("A");
@@ -81,6 +80,6 @@ public class AvatarRepositoryProxyTest {
 
 		profile.setPicture("https://avatar");
 		String defaultLink = repository.getLink(profile, AvatarFormat.Profile);
-		assertEquals(new DefaultAvatarRepository(config).getLink(profile, AvatarFormat.Profile), defaultLink);
+		assertEquals(new DefaultAvatarProvider(config).getLink(profile, AvatarFormat.Profile), defaultLink);
 	}
 }

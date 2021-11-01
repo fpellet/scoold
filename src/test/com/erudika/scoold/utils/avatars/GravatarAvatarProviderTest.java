@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GravatarAvatarRepositoryTest {
-	private GravatarAvatarRepository repository;
-	private AvatarRepository defaultRepository;
+public class GravatarAvatarProviderTest {
+	private GravatarAvatarProvider repository;
+	private AvatarProvider defaultRepository;
 	private Profile profile;
 	private GravatarAvatarGenerator gravatarGenerator;
 	private AvatarConfig config;
@@ -19,9 +19,9 @@ public class GravatarAvatarRepositoryTest {
 		this.profile = new Profile();
 		this.profile.setUser(new User());
 		this.config = new AvatarConfig();
-		this.defaultRepository = new DefaultAvatarRepository(config);
+		this.defaultRepository = new DefaultAvatarProvider(config);
 		this.gravatarGenerator = new GravatarAvatarGenerator(config);
-		this.repository = new GravatarAvatarRepository(gravatarGenerator, defaultRepository);
+		this.repository = new GravatarAvatarProvider(gravatarGenerator, defaultRepository);
 	}
 
 	@Test

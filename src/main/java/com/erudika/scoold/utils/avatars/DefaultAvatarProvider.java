@@ -2,10 +2,10 @@ package com.erudika.scoold.utils.avatars;
 
 import com.erudika.scoold.core.Profile;
 
-public class DefaultAvatarRepository implements AvatarRepository {
+public class DefaultAvatarProvider implements AvatarProvider {
 	private final AvatarConfig config;
 
-	public DefaultAvatarRepository(AvatarConfig config) {
+	public DefaultAvatarProvider(AvatarConfig config) {
 		this.config = config;
 	}
 

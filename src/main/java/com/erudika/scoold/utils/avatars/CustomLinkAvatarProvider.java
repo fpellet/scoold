@@ -6,12 +6,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import static com.erudika.scoold.ScooldServer.PEOPLELINK;
 
-public class CustomLinkAvatarRepository implements AvatarRepository {
+public class CustomLinkAvatarProvider implements AvatarProvider {
 	private final GravatarAvatarGenerator gravatarAvatarGenerator;
 	private final AvatarConfig config;
-	private final AvatarRepository nextRepository;
+	private final AvatarProvider nextRepository;
 
-	public CustomLinkAvatarRepository(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config, AvatarRepository nextRepository) {
+	public CustomLinkAvatarProvider(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config, AvatarProvider nextRepository) {
 		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
 		this.config = config;
 		this.nextRepository = nextRepository;

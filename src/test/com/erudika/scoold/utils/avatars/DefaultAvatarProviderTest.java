@@ -6,14 +6,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class DefaultAvatarRepositoryTest {
-	private DefaultAvatarRepository repository;
+public class DefaultAvatarProviderTest {
+	private DefaultAvatarProvider repository;
 	private AvatarConfig config;
 
 	@Before
 	public void setUp(){
 		this.config = new AvatarConfig();
-		this.repository = new DefaultAvatarRepository(config);
+		this.repository = new DefaultAvatarProvider(config);
 	}
 
 	@Test
