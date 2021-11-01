@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public class GravatarAvatarRepositoryTest {
 	private GravatarAvatarRepository repository;
@@ -22,7 +21,7 @@ public class GravatarAvatarRepositoryTest {
 		this.config = new AvatarConfig();
 		this.defaultRepository = new DefaultAvatarRepository(config);
 		this.gravatarGenerator = new GravatarAvatarGenerator(config);
-		this.repository = new GravatarAvatarRepository(gravatarGenerator, config, defaultRepository);
+		this.repository = new GravatarAvatarRepository(gravatarGenerator, defaultRepository);
 	}
 
 	@Test
@@ -75,57 +74,5 @@ public class GravatarAvatarRepositoryTest {
 		String avatar = repository.getAnonymizedLink("A");
 
 		assertEquals(gravatarGenerator.getRawLink("A"), avatar);
-	}
-
-	@Test
-	public void store_should_change_profile_picture() {
-		profile.getUser().setEmail("toto@example.com");
-		String avatar = gravatarGenerator.configureLink(gravatarGenerator.getRawLink("toto@example.com"), AvatarFormat.Profile);
-
-		AvatarStorageResult result = repository.store(profile, avatar);
-
-		assertEquals(AvatarStorageResult.profileChanged(), result);
-		assertEquals(avatar, profile.getPicture());
-		assertNotEquals(avatar, profile.getUser().getPicture());
-	}
-
-	@Test
-	public void store_should_nothing_if_url_is_not_gravatar_link() {
-		AvatarRepository defaultRepository = mock(AvatarRepository.class);
-		AvatarRepository repository = new GravatarAvatarRepository(gravatarGenerator, config, defaultRepository);
-		profile.getUser().setEmail("toto@example.com");
-		String avatar = "https://avatar";
-		when(defaultRepository.store(profile, avatar)).thenReturn(AvatarStorageResult.failed());
-
-		AvatarStorageResult result = repository.store(profile, avatar);
-
-		assertEquals(AvatarStorageResult.failed(), result);
-		assertNotEquals(avatar, profile.getPicture());
-		assertNotEquals(avatar, profile.getUser().getPicture());
-		verify(defaultRepository, times(1)).store(profile, avatar);
-	}
-
-	@Test
-	public void store_should_change_profile_picture_if_url_is_empty() {
-		profile.getUser().setEmail("toto@example.com");
-		String avatar = gravatarGenerator.getRawLink("toto@example.com");
-
-		AvatarStorageResult result = repository.store(profile, "");
-
-		assertEquals(AvatarStorageResult.profileChanged(), result);
-		assertEquals(avatar, profile.getPicture());
-		assertNotEquals(avatar, profile.getUser().getPicture());
-	}
-
-	@Test
-	public void store_should_change_profile_picture_if_url_is_default_avatar() {
-		profile.getUser().setEmail("toto@example.com");
-		String avatar = gravatarGenerator.getRawLink("toto@example.com");
-
-		AvatarStorageResult result = repository.store(profile, config.getDefaultAvatar());
-
-		assertEquals(AvatarStorageResult.profileChanged(), result);
-		assertEquals(avatar, profile.getPicture());
-		assertNotEquals(avatar, profile.getUser().getPicture());
 	}
 }

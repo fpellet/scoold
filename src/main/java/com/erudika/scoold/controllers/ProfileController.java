@@ -199,7 +199,7 @@ public class ProfileController {
 
 		if (Config.getConfigBoolean("avatar_edits_enabled", true) &&
 				!StringUtils.isBlank(picture)) {
-			AvatarStorageResult result = avatarRepository.store(showUser, picture);
+			AvatarStorageResult result = storeAvatar(showUser, picture);
 			updateProfile = result.isProfileChanged();
 			updateUser = result.isUserChanged();
 		}
@@ -220,6 +220,41 @@ public class ProfileController {
 			utils.getParaClient().update(u);
 		}
 		return updateProfile;
+	}
+
+	private AvatarStorageResult storeAvatar(Profile profile, String url) {
+		if (avatarConfig.isGravatarEnabled()) {
+			if (StringUtils.isBlank(url) || StringUtils.equals(url, avatarConfig.getDefaultAvatar())) {
+				String gravatarUrl = gravatarAvatarGenerator.getRawLink(profile);
+				profile.setPicture(gravatarUrl);
+				return AvatarStorageResult.profileChanged();
+			}
+
+			if (gravatarAvatarGenerator.isLink(url)) {
+				profile.setPicture(url);
+				return AvatarStorageResult.profileChanged();
+			}
+		}
+
+		if (avatarConfig.isCustomLinkEnabled() && (Utils.isValidURL(url) || url.startsWith("data:"))) {
+			profile.setPicture(url);
+
+			User user = profile.getUser();
+			if (!user.getPicture().equals(url)) {
+				user.setPicture(url);
+
+				return AvatarStorageResult.userChanged();
+			}
+
+			return AvatarStorageResult.profileChanged();
+		}
+
+		if (!StringUtils.isBlank(profile.getPicture())) {
+			profile.setPicture("");
+			return AvatarStorageResult.profileChanged();
+		}
+
+		return AvatarStorageResult.failed();
 	}
 
 	private boolean isMyid(Profile authUser, String id) {

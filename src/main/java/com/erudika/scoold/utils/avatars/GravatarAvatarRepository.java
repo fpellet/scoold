@@ -5,12 +5,10 @@ import org.apache.commons.lang3.StringUtils;
 
 public class GravatarAvatarRepository implements AvatarRepository {
 	private final GravatarAvatarGenerator gravatarAvatarGenerator;
-	private final AvatarConfig config;
 	private final AvatarRepository nextRepository;
 
-	public GravatarAvatarRepository(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config, AvatarRepository nextRepository) {
+	public GravatarAvatarRepository(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarRepository nextRepository) {
 		this.gravatarAvatarGenerator = gravatarAvatarGenerator;
-		this.config = config;
 		this.nextRepository = nextRepository;
 	}
 
@@ -35,24 +33,5 @@ public class GravatarAvatarRepository implements AvatarRepository {
 	@Override
 	public String getAnonymizedLink(String data) {
 		return gravatarAvatarGenerator.getRawLink(data);
-	}
-
-	@Override
-	public AvatarStorageResult store(Profile profile, String url) {
-		if (StringUtils.isBlank(url) || StringUtils.equals(url, config.getDefaultAvatar())) {
-			String gravatarUrl = gravatarAvatarGenerator.getRawLink(profile);
-			return applyChange(profile, gravatarUrl);
-		}
-
-		if (!gravatarAvatarGenerator.isLink(url)) {
-			return nextRepository.store(profile, url);
-		}
-
-		return applyChange(profile, url);
-	}
-
-	private AvatarStorageResult applyChange(Profile profile, String url) {
-		profile.setPicture(url);
-		return AvatarStorageResult.profileChanged();
 	}
 }

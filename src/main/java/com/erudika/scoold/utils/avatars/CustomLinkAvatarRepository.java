@@ -1,6 +1,5 @@
 package com.erudika.scoold.utils.avatars;
 
-import com.erudika.para.core.User;
 import com.erudika.para.utils.Utils;
 import com.erudika.scoold.core.Profile;
 import org.apache.commons.lang3.StringUtils;
@@ -61,23 +60,5 @@ public class CustomLinkAvatarRepository implements AvatarRepository {
 	public String getAnonymizedLink(String data) {
 
 		return nextRepository.getAnonymizedLink(data);
-	}
-
-	@Override
-	public AvatarStorageResult store(Profile profile, String url) {
-		if (!Utils.isValidURL(url) && !url.startsWith("data:")) {
-			return nextRepository.store(profile, url);
-		}
-
-		profile.setPicture(url);
-
-		User user = profile.getUser();
-		if (!user.getPicture().equals(url)) {
-			user.setPicture(url);
-
-			return AvatarStorageResult.userChanged();
-		}
-
-		return AvatarStorageResult.profileChanged();
 	}
 }

@@ -16,7 +16,7 @@ public class AvatarRepositoryProxy implements AvatarRepository {
 
 	private AvatarRepository addGravatarIfEnabled(AvatarRepository repo, GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config) {
 		return config.isGravatarEnabled()
-			? new GravatarAvatarRepository(gravatarAvatarGenerator, config, repo)
+			? new GravatarAvatarRepository(gravatarAvatarGenerator, repo)
 			: repo;
 	}
 
@@ -38,10 +38,5 @@ public class AvatarRepositoryProxy implements AvatarRepository {
 	@Override
 	public String getAnonymizedLink(String data) {
 		return repository.getAnonymizedLink(data);
-	}
-
-	@Override
-	public AvatarStorageResult store(Profile profile, String url) {
-		return repository.store(profile, url);
 	}
 }

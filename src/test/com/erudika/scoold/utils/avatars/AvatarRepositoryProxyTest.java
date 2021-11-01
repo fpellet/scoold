@@ -35,19 +35,14 @@ public class AvatarRepositoryProxyTest {
 		assertEquals("https://gravatarA", result);
 
 		when(gravatarAvatarGeneratorFake.isLink("https://gravatarA")).thenReturn(true);
-		String gravatarAvatar = "https://gravatarA";
-		AvatarStorageResult storageGravatarResult = repository.store(profile, gravatarAvatar);
-		assertEquals(gravatarAvatar, profile.getPicture());
-		assertEquals(AvatarStorageResult.profileChanged(), storageGravatarResult);
+		when(gravatarAvatarGeneratorFake.configureLink("https://gravatarA", AvatarFormat.Profile)).thenReturn("https://gravatarA?profile");
+		profile.setPicture("https://gravatarA");
+		String gravatarLink = repository.getLink(profile, AvatarFormat.Profile);
+		assertEquals(gravatarLink, "https://gravatarA?profile");
 
-		String customLinkAvatar = "https://avatar";
-		AvatarStorageResult storageCustomLinkResult = repository.store(profile, customLinkAvatar);
-		assertEquals(customLinkAvatar, profile.getPicture());
-		assertEquals(AvatarStorageResult.userChanged(), storageCustomLinkResult);
-
-		AvatarStorageResult storageDefaultResult = repository.store(profile, "bad:avatar");
-		assertEquals("", profile.getPicture());
-		assertEquals(AvatarStorageResult.profileChanged(), storageDefaultResult);
+		profile.setPicture("https://avatar");
+		String customLinkLink = repository.getLink(profile, AvatarFormat.Profile);
+		assertEquals(customLinkLink, profile.getPicture());
 
 		profile.setPicture("bad:avatar");
 		String defaultLink = repository.getLink(profile, AvatarFormat.Profile);
@@ -79,14 +74,13 @@ public class AvatarRepositoryProxyTest {
 		assertEquals("https://gravatarA", result);
 
 		when(gravatarAvatarGeneratorFake.isLink("https://gravatarA")).thenReturn(true);
-		String gravatarAvatar = "https://gravatarA";
-		AvatarStorageResult storageGravatarResult = repository.store(profile, gravatarAvatar);
-		assertEquals(gravatarAvatar, profile.getPicture());
-		assertEquals(AvatarStorageResult.profileChanged(), storageGravatarResult);
+		when(gravatarAvatarGeneratorFake.configureLink("https://gravatarA", AvatarFormat.Profile)).thenReturn("https://gravatarA?profile");
+		profile.setPicture("https://gravatarA");
+		String gravatarLink = repository.getLink(profile, AvatarFormat.Profile);
+		assertEquals(gravatarLink, "https://gravatarA?profile");
 
-		String customLinkAvatar = "https://avatar";
-		AvatarStorageResult storageCustomLinkResult = repository.store(profile, customLinkAvatar);
-		assertEquals("", profile.getPicture());
-		assertEquals(AvatarStorageResult.profileChanged(), storageCustomLinkResult);
+		profile.setPicture("https://avatar");
+		String defaultLink = repository.getLink(profile, AvatarFormat.Profile);
+		assertEquals(new DefaultAvatarRepository(config).getLink(profile, AvatarFormat.Profile), defaultLink);
 	}
 }
