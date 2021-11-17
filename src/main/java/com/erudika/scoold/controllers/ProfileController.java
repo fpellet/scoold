@@ -41,13 +41,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.erudika.scoold.utils.avatars.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 import static com.erudika.scoold.ScooldServer.PROFILELINK;
 import static com.erudika.scoold.ScooldServer.SIGNINLINK;
 import com.erudika.scoold.core.Question;
@@ -193,9 +191,9 @@ public class ProfileController {
 		return "redirect:" + PROFILELINK + (isMyid(authUser, id) ? "" : "/" + id);
 	}
 
-	@PostMapping("/{id}/avatar")
-	public String handleFileUpload(@PathVariable(required = false) String id, @RequestParam() MultipartFile avatarfile,
-			HttpServletRequest req, HttpServletResponse res) throws IOException {
+	@PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.TEXT_PLAIN_VALUE)
+	public @ResponseBody String handleFileUpload(@PathVariable(required = false) String id, @RequestParam() MultipartFile avatarfile,
+							HttpServletRequest req, HttpServletResponse res) throws IOException {
 		Profile authUser = utils.getAuthUser(req);
 		Profile showUser = getProfileForEditing(id, authUser);
 		if (showUser == null) {

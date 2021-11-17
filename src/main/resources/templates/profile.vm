@@ -33,6 +33,7 @@
 				#if ($canEdit && $canEditAvatar)
 				<a id="edit-picture-link" href="#" class="editlink"><i class="fa fa-image"></i> $!lang.get('profile.changepic')</a>
 				<div class="editbox hide">
+					<input id="avatar_cloudinary_file" type="file" hidden accept="image/*" max-size="5242880" />
 					<form action="$profilelink/$!showUser.creatorid" method="post">
 						#sectoken(false)
 						<input id="avatar_gravatar_url" type="hidden" value="$!gravatarPicture">
@@ -42,7 +43,6 @@
 						#if($isCloudinaryEnabled)
 							<div class="row">
 								<div class="col s12">
-									<input id="avatar_cloudinary_file" type="file" hidden accept="image/*" max-size="5242880" />
 									<button class="btn" id="avatar_cloudinary_button">Envoyer une image</button>
 								</div>
 								<div class="col s6">

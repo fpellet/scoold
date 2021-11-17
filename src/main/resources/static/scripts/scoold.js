@@ -534,9 +534,7 @@ $(function () {
 	function changeAvatars(newPicValue) {
 		avatarUrlInput.val(newPicValue);
 
-		if (navbarAvatar.attr("src") === profileAvatar.attr("src")) {
-			navbarAvatar.attr("src", newPicValue);
-		}
+		navbarAvatar.attr("src", newPicValue);
 		profileAvatar.attr("src", newPicValue);
 	}
 
@@ -552,8 +550,7 @@ $(function () {
 	});
 
 	$("#avatar_cloudinary_file").on('change', function() {
-		var rthis = $(this);
-		var file = rthis.file[0]
+		var file = this.files[0]
 		if(!file) return;
 
 		var data = new FormData();
@@ -569,6 +566,8 @@ $(function () {
 			cache: false,
 			success: function (data) {
 				changeAvatars(data);
+				$("#use-gravatar-switch").prop('checked', false)
+				updateAvatarFormDisplay();
 			},
 			error: function (e) {
 				console.error(e)
@@ -576,7 +575,8 @@ $(function () {
 		})
 	})
 
-	$("#avatar_cloudinary_button").on('click', function() {
+	$("#avatar_cloudinary_button").on('click', function(evt) {
+		evt.preventDefault();
 		$("#avatar_cloudinary_file").val(null)
 		document.getElementById('avatar_cloudinary_file').click();
 	})
