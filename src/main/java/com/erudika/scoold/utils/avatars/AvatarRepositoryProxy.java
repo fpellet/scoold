@@ -11,16 +11,26 @@ public class AvatarRepositoryProxy implements AvatarRepository {
 	private final AvatarRepository repository;
 
 	public AvatarRepositoryProxy(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config) {
-		this.repository = addGravatarIfEnabled(addCustomLinkIfEnabled(getDefault(config), gravatarAvatarGenerator, config), gravatarAvatarGenerator, config);
+		this.repository =
+			addGravatarIfEnabled(gravatarAvatarGenerator, config,
+				addCloudinaryIfEnabled(config,
+					addCustomLinkIfEnabled(gravatarAvatarGenerator, config,
+						getDefault(config))));
 	}
 
-	private AvatarRepository addGravatarIfEnabled(AvatarRepository repo, GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config) {
+	private AvatarRepository addGravatarIfEnabled(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config, AvatarRepository repo) {
 		return config.isGravatarEnabled()
 			? new GravatarAvatarRepository(gravatarAvatarGenerator, config, repo)
 			: repo;
 	}
 
-	private AvatarRepository addCustomLinkIfEnabled(AvatarRepository repo, GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config) {
+	private AvatarRepository addCloudinaryIfEnabled(AvatarConfig config, AvatarRepository repo) {
+		return config.isCloudinaryEnabled()
+			? new CloudinaryAvatarRepository(repo)
+			: repo;
+	}
+
+	private AvatarRepository addCustomLinkIfEnabled(GravatarAvatarGenerator gravatarAvatarGenerator, AvatarConfig config, AvatarRepository repo) {
 		return config.isCustomLinkEnabled()
 			? new CustomLinkAvatarRepository(gravatarAvatarGenerator, config, repo)
 			: repo;

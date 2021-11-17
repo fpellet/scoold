@@ -89,4 +89,28 @@ public class AvatarRepositoryProxyTest {
 		assertEquals("", profile.getPicture());
 		assertEquals(AvatarStorageResult.profileChanged(), storageCustomLinkResult);
 	}
+
+	@Test
+	public void should_use_cloudinary_if_enable() {
+		AvatarConfig config = mock(AvatarConfig.class);
+		when(config.getDefaultAvatar()).thenReturn("/default_avatar");
+		when(config.isGravatarEnabled()).thenReturn(true);
+		when(config.isCustomLinkEnabled()).thenReturn(true);
+		when(config.isCloudinaryEnabled()).thenReturn(true);
+		AvatarRepository repository = new AvatarRepositoryProxy(gravatarAvatarGeneratorFake, config);
+
+		when(gravatarAvatarGeneratorFake.getRawLink("A")).thenReturn("https://gravatarA");
+		String result = repository.getAnonymizedLink("A");
+		assertEquals("https://gravatarA", result);
+
+		when(gravatarAvatarGeneratorFake.isLink("https://gravatarA")).thenReturn(true);
+		String gravatarAvatar = "https://gravatarA";
+		AvatarStorageResult storageGravatarResult = repository.store(profile, gravatarAvatar);
+		assertEquals(gravatarAvatar, profile.getPicture());
+		assertEquals(AvatarStorageResult.profileChanged(), storageGravatarResult);
+
+		String cloudinaryAvatar = "https://res.cloudinary.com/test/image/upload/avatar.jpg";
+		repository.store(profile, cloudinaryAvatar);
+		assertEquals("https://res.cloudinary.com/test/image/upload/t_square32/avatar.jpg", repository.getLink(profile, AvatarFormat.Square32));
+	}
 }
