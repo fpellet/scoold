@@ -125,6 +125,7 @@ public class ProfileController {
 		model.addAttribute("gravatarPicture", gravatarAvatarGenerator.getLink(showUser, AvatarFormat.Profile));
 		model.addAttribute("isGravatarPicture", gravatarAvatarGenerator.isLink(showUser.getPicture()));
 		model.addAttribute("isCustomAvatarLinkEnabled", avatarConfig.isCustomLinkEnabled());
+		model.addAttribute("isCloudinaryEnabled", avatarConfig.isCloudinaryEnabled());
 		model.addAttribute("defaultAvatar", avatarConfig.getDefaultAvatar());
 		model.addAttribute("itemcount1", itemcount1);
 		model.addAttribute("itemcount2", itemcount2);

@@ -551,6 +551,36 @@ $(function () {
 		$("#use-gravatar-switch").prop('checked', false).trigger("change");
 	});
 
+	$("#avatar_cloudinary_file").on('change', function() {
+		var rthis = $(this);
+		var file = rthis.file[0]
+		if(!file) return;
+
+		var data = new FormData();
+		data.append("avatarfile", file);
+
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+			url: avatarEditForm.attr("action") + '/avatar',
+			data: data,
+			processData: false,
+			contentType: false,
+			cache: false,
+			success: function (data) {
+				changeAvatars(data);
+			},
+			error: function (e) {
+				console.error(e)
+			}
+		})
+	})
+
+	$("#avatar_cloudinary_button").on('click', function() {
+		$("#avatar_cloudinary_file").val(null)
+		document.getElementById('avatar_cloudinary_file').click();
+	})
+
 	function updateAvatarFormDisplay() {
 		if($("#use-gravatar-switch").prop('checked')) {
 			avatarCustomUrlBlock.css({display: 'none', visibility: 'collapse'});
