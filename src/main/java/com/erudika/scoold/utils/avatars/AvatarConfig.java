@@ -28,6 +28,10 @@ public class AvatarConfig {
 		return Config.getConfigBoolean("avatar_custom_link_accepted", true);
 	}
 
+	public boolean isCloudinaryEnabled() {
+		return Config.getConfigBoolean("avatar_cloudinary_accepted", false);
+	}
+
 	public String getDefaultAvatar() {
 		return DEFAULT_URL;
 	}

@@ -1926,6 +1926,8 @@ para.gravatars_enabled = true
 para.gravatars_pattern = "retro"
 # accept user to choose url as avatar
 para.avatar_custom_link_accepted = true
+# accept user to use cloudinary to send file
+para.avatar_cloudinary_accepted = false
 
 # custom navbar links
 para.navbar_link1_url = ""
