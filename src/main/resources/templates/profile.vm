@@ -44,19 +44,18 @@
 							<div class="row">
 								<div class="col s12">
 									<button class="btn" id="avatar_cloudinary_button">Envoyer une image</button>
-								</div>
-								<div class="col s6">
-									<div class="switch right">
-										<label>
-											$!lang.get('off')
-											#if($isGravatarPicture)
-												<input id="use-gravatar-switch" type="checkbox" name="gravatar" checked="checked">
-											#else
-												<input id="use-gravatar-switch" type="checkbox" name="gravatar">
-											#end
-											<span class="lever"></span>
-											$!lang.get('on')
-										</label>
+									<div id="avatar_loading" class="preloader-wrapper hide">
+										<div class="spinner-layer spinner-red-only">
+											<div class="circle-clipper left">
+												<div class="circle"></div>
+											</div>
+											<div class="gap-patch">
+												<div class="circle"></div>
+											</div>
+											<div class="circle-clipper right">
+												<div class="circle"></div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -553,6 +553,19 @@ $(function () {
 		var file = this.files[0]
 		if(!file) return;
 
+		var enableLoading = function() {
+			document.getElementById('avatar_cloudinary_button').classList.add('hide');
+			document.getElementById('avatar_loading').classList.add('active');
+			document.getElementById('avatar_loading').classList.remove('hide');
+		}
+		var disableLoading = function() {
+			document.getElementById('avatar_cloudinary_button').classList.remove('hide');
+			document.getElementById('avatar_loading').classList.remove('active');
+			document.getElementById('avatar_loading').classList.add('hide');
+		}
+
+		enableLoading()
+
 		var data = new FormData();
 		data.append("avatarfile", file);
 
@@ -565,12 +578,14 @@ $(function () {
 			contentType: false,
 			cache: false,
 			success: function (data) {
+				disableLoading();
 				changeAvatars(data);
 				$("#use-gravatar-switch").prop('checked', false)
 				updateAvatarFormDisplay();
 			},
 			error: function (e) {
 				console.error(e)
+				disableLoading();
 			}
 		})
 	})
