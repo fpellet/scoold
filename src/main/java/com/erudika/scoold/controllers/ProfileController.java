@@ -17,6 +17,8 @@
  */
 package com.erudika.scoold.controllers;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.erudika.para.core.User;
 import static com.erudika.para.core.User.Groups.MODS;
 import static com.erudika.para.core.User.Groups.USERS;
@@ -29,6 +31,8 @@ import com.erudika.scoold.core.Post;
 import com.erudika.scoold.core.Profile;
 import com.erudika.scoold.core.Profile.Badge;
 import com.erudika.scoold.utils.ScooldUtils;
+
+import java.io.IOException;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.erudika.scoold.utils.avatars.*;
 import org.apache.commons.lang3.StringUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +52,9 @@ import static com.erudika.scoold.ScooldServer.PROFILELINK;
 import static com.erudika.scoold.ScooldServer.SIGNINLINK;
 import com.erudika.scoold.core.Question;
 import com.erudika.scoold.core.Reply;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  *
@@ -183,6 +190,34 @@ public class ProfileController {
 			model.addAttribute("user", showUser);
 		}
 		return "redirect:" + PROFILELINK + (isMyid(authUser, id) ? "" : "/" + id);
+	}
+
+	@PostMapping("/{id}/avatar")
+	public String handleFileUpload(@PathVariable(required = false) String id, @RequestParam() MultipartFile avatarfile,
+			HttpServletRequest req, HttpServletResponse res) throws IOException {
+		Profile authUser = utils.getAuthUser(req);
+		Profile showUser = getProfileForEditing(id, authUser);
+		if (showUser == null) {
+			res.setStatus(400);
+			return "";
+		}
+
+		String avatarUrl = sendToCloudinary(id, avatarfile);
+		updateUserPictureAndName(showUser, avatarUrl, "");
+
+		return avatarUrl;
+	}
+
+	@NotNull
+	private String sendToCloudinary(String id, MultipartFile avatarFile) throws IOException {
+		Cloudinary cloudinary = new Cloudinary();
+		Map uploadResult = cloudinary.uploader().upload(avatarFile.getBytes(), ObjectUtils.asMap(
+			"resource_type", "image",
+			"public_id", "avatars/" + id,
+			"upload_preset", "avatar",
+			"filename", avatarFile.getOriginalFilename()
+		));
+		return (String) uploadResult.get("secure_url");
 	}
 
 	private Profile getProfileForEditing(String id, Profile authUser) {
