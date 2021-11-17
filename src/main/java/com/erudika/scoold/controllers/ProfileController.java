@@ -202,7 +202,9 @@ public class ProfileController {
 		}
 
 		String avatarUrl = sendToCloudinary(id, avatarfile);
-		updateUserPictureAndName(showUser, avatarUrl, "");
+		if (updateUserPictureAndName(showUser, avatarUrl, "")) {
+			showUser.update();
+		}
 
 		return avatarUrl;
 	}
