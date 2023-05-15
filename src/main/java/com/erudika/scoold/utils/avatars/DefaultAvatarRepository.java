@@ -22,6 +22,8 @@ import com.erudika.scoold.utils.ScooldUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
 
+import java.util.Objects;
+
 public class DefaultAvatarRepository implements AvatarRepository {
 
 	public DefaultAvatarRepository() {
@@ -39,15 +41,11 @@ public class DefaultAvatarRepository implements AvatarRepository {
 
 	@Override
 	public boolean store(Profile profile, String url) {
-		if (StringUtils.isBlank(url) || !url.equalsIgnoreCase(profile.getOriginalPicture())) {
-			if (Strings.CI.startsWith(url, ScooldUtils.getConfig().serverUrl())) {
-				profile.setPicture(url);
-			} else {
-				profile.setPicture(ScooldUtils.getDefaultAvatar());
-			}
-		} else {
-			profile.setPicture(profile.getOriginalPicture());
+		if (!Objects.equals(profile.getPicture(), "")) {
+			profile.setPicture("");
+			return true;
 		}
-		return true;
+
+		return false;
 	}
 }

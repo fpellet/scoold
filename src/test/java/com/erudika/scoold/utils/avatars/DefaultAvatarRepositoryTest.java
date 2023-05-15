@@ -45,11 +45,21 @@ public class DefaultAvatarRepositoryTest {
 	}
 
 	@Test
-	public void store_should_nothing() {
+	public void store_should_save_empty_string() {
 		Profile profile = new Profile();
 
 		boolean result = repository.store(profile, "https://avatar");
-		assertEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
-		assertEquals(true, result);
+		assertEquals("", profile.getPicture());
+		assertTrue(result);
+	}
+
+	@Test
+	public void store_should_nothing_if_profile_has_already_empty_avatar() {
+		Profile profile = new Profile();
+		profile.setPicture("");
+
+		boolean result = repository.store(profile, "https://avatar");
+		assertNotEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
+		assertFalse(result);
 	}
 }
