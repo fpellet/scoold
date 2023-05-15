@@ -3644,6 +3644,15 @@ public class ScooldConfig extends Config {
 		return getConfigBoolean("onboarding_enabled", true);
 	}
 
+	@Documented(position = 99050,
+		identifier = "use_gravatar_as_default_avatar",
+		value = "false",
+		type = Boolean.class,
+		category = "Customization",
+		description = "Use gravatar if no avatar.")
+	public boolean useGravatarAsDefaultAvatar() {
+		return getConfigBoolean("use_gravatar_as_default_avatar", false);
+	}
 	/* **********************************************************************************************************/
 
 	public boolean inDevelopment() {

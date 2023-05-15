@@ -53,12 +53,12 @@ public class AvatarRepositoryProxyTest {
 
 		String customLinkAvatar = "https://avatar";
 		boolean storageCustomLinkResult = repository.store(profile, customLinkAvatar);
-		assertEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
+		assertEquals("", profile.getPicture());
 		assertTrue(storageCustomLinkResult);
 
 		boolean storageDefaultResult = repository.store(profile, "bad:avatar");
-		assertEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
-		assertTrue(storageDefaultResult);
+		assertEquals("", profile.getPicture());
+		assertFalse(storageDefaultResult);
 
 		profile.setPicture("bad:avatar");
 		String defaultLink = repository.getLink(profile, AvatarFormat.Profile);
@@ -92,7 +92,7 @@ public class AvatarRepositoryProxyTest {
 
 		String customLinkAvatar = "https://avatar";
 		boolean storageCustomLinkResult = repository.store(profile, customLinkAvatar);
-		assertEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
+		assertEquals("", profile.getPicture());
 		assertTrue(storageCustomLinkResult);
 	}
 
