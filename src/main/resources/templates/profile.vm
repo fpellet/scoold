@@ -12,11 +12,16 @@
 					<form action="$profilelink/$!showUser.creatorid" method="post">
 						#sectoken(false)
 						<input id="avatar-gravatar-url" type="hidden" value="$!gravatarPicture">
-						<input id="avatar-default-url" type="hidden" value="$!scooldUtils.getDefaultAvatar()">
-						<input id="avatar-custom-url" type="hidden" value="$!showUser.originalPicture">
+						#if($useGravatarAsDefaultAvatar)
+							<input id="avatar-default-url" type="hidden" value="$!gravatarPicture">
+							<input id="avatar-custom-url" type="hidden" value="$!gravatarPicture">
+						#else
+							<input id="avatar-default-url" type="hidden" value="$!scooldUtils.getDefaultAvatar()">
+							<input id="avatar-custom-url" type="hidden" value="$!showUser.originalPicture">
+						#end
 						<input id="picture-url" type="hidden" name="picture" value="$!showUser.picture">
 
-						#if($scooldUtils.isGravatarEnabled())
+						#if($scooldUtils.isGravatarEnabled() && !$useGravatarAsDefaultAvatar)
 						<div class="row">
 							<div class="col s6">
 								<strong class="left">$!lang.get('profile.usegravatar')</strong>

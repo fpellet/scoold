@@ -130,7 +130,7 @@ public class GravatarAvatarRepositoryTest {
 		boolean result = repository.store(profile, ScooldUtils.getDefaultAvatar());
 
 		assertEquals(true, result);
-		assertEquals(ScooldUtils.getDefaultAvatar(), profile.getPicture());
+		assertEquals("", profile.getPicture());
 		assertNotEquals(avatar, profile.getOriginalPicture());
 	}
 }
