@@ -220,7 +220,6 @@ public class SearchController {
 	public ResponseEntity<String> robots(HttpServletRequest req) {
 		String robots = "# " + CONF.appName() + " - robots.txt\n"
 				+ "\n"
-				+ "License: " + CONF.serverUrl() + CONF.serverContextPath() + "/license.xml\n"
 				+ "Content-Usage: train-ai=" + (CONF.aiTrainingAllowed() ? "y" : "n")
 				+ "\n"
 				+ "User-agent: *\n"
