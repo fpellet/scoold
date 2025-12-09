@@ -20,7 +20,6 @@ package com.erudika.scoold.utils.avatars;
 import com.erudika.scoold.core.Profile;
 import com.erudika.scoold.utils.ScooldUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Strings;
 
 import java.util.Objects;
 
