@@ -29,7 +29,7 @@ body, footer.page-footer { background-color: #1e0f58; }
 .footer-links { display: flex; text-align: center; }
 .footer-links a { padding: 0.3em 0.25em; display: block; }
 
-.signin-bigButton { display: flex; align-items: center; line-height: 1.3; text-align: left; width: 100%; }
+.signin-bigButton { display: flex; align-items: center; line-height: 1.3; text-align: left; width: 100%; gap: 0.5em; }
 .signin-bigButton--register { font-weight: bold; }
 
 
