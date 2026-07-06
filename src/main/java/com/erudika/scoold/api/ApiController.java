@@ -837,6 +837,11 @@ public class ApiController {
 			res.setStatus(HttpStatus.NOT_FOUND.value());
 			return null;
 		}
+		Post parentPost = pc.read(comment.getParentid());
+		if (parentPost != null && !utils.canAccessSpace(utils.getAuthUser(req), parentPost.getSpace())) {
+			res.setStatus(HttpStatus.NOT_FOUND.value());
+			return null;
+		}
 		return comment;
 	}
 

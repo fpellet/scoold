@@ -3636,12 +3636,12 @@ public class ScooldConfig extends Config {
 
 	@Documented(position = 3160,
 			identifier = "onboarding_enabled",
-			value = "true",
+			value = "false",
 			type = Boolean.class,
 			category = "Miscellaneous",
 			description = "Enable/disable the onboarding wizard when Scoold is initially started without any data.")
 	public boolean onboardingEnabled() {
-		return getConfigBoolean("onboarding_enabled", true);
+		return getConfigBoolean("onboarding_enabled", false);
 	}
 
 	@Documented(position = 99050,

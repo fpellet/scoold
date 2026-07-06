@@ -174,6 +174,9 @@ public class OnboardingController {
 			@RequestParam String paraEndpoint,
 			@RequestParam String paraAccessKey,
 			@RequestParam String paraSecretKey) {
+		if (!ScooldUtils.isSetupRequired()) {
+			return ResponseEntity.status(403).build();
+		}
 		Map<String, Object> result = new LinkedHashMap<>();
 		try {
 			result.put("connected", connectedToPara(paraEndpoint, paraAccessKey, paraSecretKey));
@@ -234,7 +237,7 @@ public class OnboardingController {
 			@RequestParam(required = false, defaultValue = "false") Boolean mailSSL,
 			@RequestParam(required = false, defaultValue = "false") Boolean skipSmtp,
 			HttpServletRequest req, HttpServletResponse res) {
-		if (!config.onboardingEnabled()) {
+		if (!ScooldUtils.isSetupRequired()) {
 			return "redirect:" + HOMEPAGE;
 		}
 		if (!skipSmtp && !StringUtils.isBlank(mailHost) &&
@@ -263,6 +266,9 @@ public class OnboardingController {
 			@RequestParam(defaultValue = "false") Boolean mailSSL,
 			@RequestParam(required = false, defaultValue = "")
 			String testRecipient) {
+		if (!ScooldUtils.isSetupRequired()) {
+			return ResponseEntity.status(403).build();
+		}
 		Map<String, Object> result = new LinkedHashMap<>();
 		try {
 			JavaMailSenderImpl sender = new JavaMailSenderImpl();

@@ -223,7 +223,7 @@ public final class ScooldUtils {
 	}
 
 	public static boolean isSetupRequired() {
-		return Boolean.parseBoolean(System.getProperty("scoold.setuprequired", "false"));
+		return false;
 	}
 
 	public static void setSetupRequired(boolean required) {
