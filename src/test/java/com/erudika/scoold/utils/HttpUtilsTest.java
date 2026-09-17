@@ -18,11 +18,41 @@
 package com.erudika.scoold.utils;
 
 import static com.erudika.scoold.utils.HttpUtils.getDefaultPort;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.URI;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class HttpUtilsTest {
+
+	@Test
+	public void testGetFullUrl_AsciiPathAndQuery() {
+		HttpServletRequest req = request("/question/123/some-title", "page=2&sortby=newest");
+		assertEquals("/question/123/some-title?page=2&sortby=newest", HttpUtils.getFullUrl(req, true));
+		assertTrue(HttpUtils.getFullUrl(req, false).endsWith("/question/123/some-title?page=2&sortby=newest"));
+	}
+
+	@Test
+	public void testGetFullUrl_AccentedPathIsEncoded() {
+		HttpServletRequest req = request("/question/123/maider-à-déclarer-limpôt", null);
+		assertEquals("/question/123/maider-%C3%A0-d%C3%A9clarer-limp%C3%B4t", HttpUtils.getFullUrl(req, true));
+	}
+
+	@Test
+	public void testGetFullUrl_IllegalUriCharsDoNotThrow() {
+		// UTF-8 bytes of "à" decoded as ISO-8859-1 -> "Ã" + U+00A0 (rejected by java.net.URI)
+		HttpServletRequest req = request("/question/123/maider-Ã -dÃ©clarer", null);
+		assertEquals("/question/123/maider-%C3%83%C2%A0-d%C3%83%C2%A9clarer", HttpUtils.getFullUrl(req, true));
+	}
+
+	private static HttpServletRequest request(String servletPath, String queryString) {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		when(req.getServletPath()).thenReturn(servletPath);
+		when(req.getQueryString()).thenReturn(queryString);
+		return req;
+	}
 
 	@Test
 	public void testIsSameOrigin_SameServer() {

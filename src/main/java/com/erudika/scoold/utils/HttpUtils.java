@@ -29,6 +29,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +51,7 @@ import org.apache.hc.core5.http.NameValuePair;
 import org.apache.hc.core5.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.util.UriUtils;
 
 /**
  * Various utilities for HTTP stuff - cookies, AJAX, etc.
@@ -240,8 +242,9 @@ public final class HttpUtils {
 
 	public static String getFullUrl(HttpServletRequest req, boolean relative) {
 		String queryString = StringUtils.isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString();
-		// don't use req.getServletPath() here - path must be URL-encoded!
-		URI currentUri = URI.create(req.getRequestURI() + queryString);
+		// the servlet path is decoded and may contain characters which are illegal in a URI (e.g. U+00A0)
+		String path = UriUtils.encodePath(CONF.serverContextPath() + req.getServletPath(), StandardCharsets.UTF_8);
+		URI currentUri = URI.create(path + queryString);
 		URI base = URI.create(CONF.serverUrl());
 		return relative ? base.relativize(currentUri).toString() : base.resolve(currentUri).toString();
 	}
