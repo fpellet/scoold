@@ -214,7 +214,12 @@ public final class HttpUtils {
 	}
 
 	public static String getFullUrl(HttpServletRequest req, boolean relative) {
-		String queryString = StringUtils.isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString();
+		// the query string is raw and Tomcat doesn't validate its escape sequences, so a '%' not followed
+		// by two hex digits (e.g. "?a=%zz") would be rejected by java.net.URI
+		String queryString =
+			StringUtils.isBlank(req.getQueryString())
+				? ""
+				: "?" + req.getQueryString().replaceAll("%(?![0-9A-Fa-f]{2})", "%25");
 		// the servlet path is decoded and may contain characters which are illegal in a URI (e.g. U+00A0)
 		String path = UriUtils.encodePath(CONF.serverContextPath() + req.getServletPath(), StandardCharsets.UTF_8);
 		URI currentUri = URI.create(path + queryString);

@@ -47,6 +47,12 @@ public class HttpUtilsTest {
 		assertEquals("/question/123/maider-%C3%83%C2%A0-d%C3%83%C2%A9clarer", HttpUtils.getFullUrl(req, true));
 	}
 
+	@Test
+	public void testGetFullUrl_MalformedEscapeInQueryDoesNotThrow() {
+		HttpServletRequest req = request("/questions", "a=%zz&b=%&returnto=%2Fquestions%3Fpage%3D2");
+		assertEquals("/questions?a=%25zz&b=%25&returnto=%2Fquestions%3Fpage%3D2", HttpUtils.getFullUrl(req, true));
+	}
+
 	private static HttpServletRequest request(String servletPath, String queryString) {
 		HttpServletRequest req = mock(HttpServletRequest.class);
 		when(req.getServletPath()).thenReturn(servletPath);
