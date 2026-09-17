@@ -28,6 +28,7 @@ import com.erudika.para.core.utils.ParaObjectUtils;
 import com.erudika.para.core.utils.RateLimiter;
 import com.erudika.para.core.utils.Utils;
 import com.erudika.scoold.ScooldConfig;
+import static com.erudika.scoold.ScooldServer.QUESTIONLINK;
 import static com.erudika.scoold.ScooldServer.QUESTIONSLINK;
 import static com.erudika.scoold.ScooldServer.SIGNINLINK;
 import com.erudika.scoold.core.Comment;
@@ -62,6 +63,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -71,6 +73,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.View;
 
 /**
  *
@@ -112,6 +115,16 @@ public class QuestionController {
 
 		if (showPost instanceof UnapprovedQuestion && !(utils.isMine(showPost, authUser) || utils.isMod(authUser))) {
 			return "redirect:" + QUESTIONSLINK;
+		}
+
+		// permanently redirect stale slugs (e.g. old accented titles) to the canonical link
+		String currentPath = req.getServletPath();
+		if (title != null && currentPath.equals(QUESTIONLINK + "/" + id + "/" + title)
+				&& !currentPath.equals(Utils.urlDecode(showPost.getPostLinkForRedirect()))) {
+			// same effect as @ResponseStatus - picked up by RedirectView
+			req.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
+			return "redirect:" + showPost.getPostLinkForRedirect()
+					+ (StringUtils.isBlank(req.getQueryString()) ? "" : "?" + req.getQueryString());
 		}
 
 		Pager itemcount = utils.getPager("page", req);
