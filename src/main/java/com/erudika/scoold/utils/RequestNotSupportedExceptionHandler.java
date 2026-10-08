@@ -19,6 +19,7 @@ package com.erudika.scoold.utils;
 
 import java.net.URI;
 import java.util.Set;
+import org.apache.tomcat.util.http.InvalidParameterException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
@@ -29,12 +30,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
- * HttpRequestMethodNotSupportedException handler - suppress spammy log messages.
+ * HttpRequestMethodNotSupportedException, NoResourceFoundException and InvalidParameterException
+ * handler - suppress spammy log messages.
  * @author Alex Bogdanovski [alex@erudika.com]
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -55,5 +58,16 @@ public class RequestNotSupportedExceptionHandler extends ResponseEntityException
 	protected ResponseEntity<Object> handleNoResourceFoundException(
 			NoResourceFoundException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 		return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create("/not-found")).build();
+	}
+
+	/**
+	 * Undecodable query parameters (e.g. "%AD" from PHP-CGI exploit scanners) make Tomcat throw
+	 * while Spring matches the request to a handler. Answer 400 instead of logging an error.
+	 * @param ex the exception
+	 * @return an empty 400 response
+	 */
+	@ExceptionHandler(InvalidParameterException.class)
+	public ResponseEntity<Object> handleInvalidParameter(InvalidParameterException ex) {
+		return ResponseEntity.badRequest().build();
 	}
 }
