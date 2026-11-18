@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import com.erudika.para.client.ParaClient;
 import com.erudika.para.core.email.Emailer;
+import com.erudika.para.core.utils.Pager;
 import com.erudika.scoold.ScooldServer;
 import com.erudika.scoold.core.Badge;
 import com.erudika.scoold.core.Profile;
@@ -100,6 +101,23 @@ public class TemplateEscapingTest {
 		engine.evaluate(ctx, out, "test", "#custombadgebox($badge \"\")");
 
 		assertTrue(out.toString(), out.toString().contains("style=\"font-family:'Roboto'; content:&quot;&eacute;&quot;\""));
+	}
+
+	@Test
+	public void accentedTagIsEscapedOnceInSortLinksAndTagFilter() throws Exception {
+		Pager itemcount = new Pager();
+		itemcount.setName("with_tags:+fiscalité,tva");
+
+		VelocityContext ctx = new VelocityContext();
+		ctx.put("tag", "fiscalité");
+		ctx.put("questionslink", "/questions");
+		ctx.put("itemcount", itemcount);
+		StringWriter out = new StringWriter();
+		engine.getTemplate("questions.vm", "UTF-8").merge(ctx, out);
+
+		String html = out.toString();
+		assertTrue(html, html.contains("href=\"/questions/tag/fiscalit&eacute;?sortby=votes\""));
+		assertTrue(html, html.contains("name=\"tags\" value=\"fiscalit&eacute;,tva\""));
 	}
 
 	@Test

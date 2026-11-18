@@ -68,7 +68,9 @@
 				<small>$!lang.get("posts.tagged")
 					<span class="chip tagchip #if($tagDescription)tooltipped#end" data-tooltip="$!tagDescription">$!tag</span>
 				</small>
-				#set($tagpath = "/tag/$!tag")
+				## no string interpolation: it would HTML-escape $tag once more before it's printed
+				#set($tagpath = '/tag/')
+				#set($tagpath = $tagpath.concat($tag))
 			#else
 				$!lang.get("questions.title") #showcount($itemcount.count)
 				#set($tagpath = "")
