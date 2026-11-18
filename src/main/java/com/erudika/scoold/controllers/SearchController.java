@@ -57,6 +57,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Strings;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.InputStreamResource;
@@ -321,22 +322,24 @@ public class SearchController {
 		String baseurl = CONF.serverUrl() + CONF.serverContextPath();
 		baseurl = baseurl.endsWith("/") ? baseurl : baseurl + "/";
 
-		model.addAttribute("title", Utils.formatMessage(lang.get("feed.title"), CONF.appName()));
-		model.addAttribute("description", Utils.formatMessage(lang.get("feed.description"), CONF.appName()));
-		model.addAttribute("baseurl", baseurl);
-		model.addAttribute("updated", Utils.formatDate(Utils.timestamp(), "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
+		// values are XML-escaped here and printed through "_"-prefixed references, which the HTML escaping
+		// of Velocity references skips: HTML named entities (e.g. &eacute;) are not valid XML
+		model.addAttribute("_xml_title", xml(Utils.formatMessage(lang.get("feed.title"), CONF.appName())));
+		model.addAttribute("_xml_description", xml(Utils.formatMessage(lang.get("feed.description"), CONF.appName())));
+		model.addAttribute("_xml_baseurl", xml(baseurl));
+		model.addAttribute("_xml_updated", xml(Utils.formatDate(Utils.timestamp(),
+				"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH)));
 
 		for (Post post : questions) {
 			String baselink = baseurl.concat("question/").concat(post.getId());
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("url", baselink);
-			map.put("title", post.getTitle());
-			map.put("id", baselink.concat("/").concat(Utils.stripAndTrim(post.getTitle()).
-					replaceAll("\\p{Z}+", "-").toLowerCase()));
-			map.put("created", Utils.formatDate(post.getTimestamp(), "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
-			map.put("updated", Utils.formatDate(post.getUpdated(), "EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH));
-			map.put("author", baseurl.concat("profile/").concat(post.getCreatorid()));
-			map.put("body", Strings.CS.removeEnd(Utils.markdownToHtml(post.getBody()), "\n"));
+			map.put("xml_url", xml(baselink));
+			map.put("xml_title", xml(post.getTitle()));
+			map.put("xml_id", xml(baselink.concat("/").concat(Utils.stripAndTrim(post.getTitle()).
+					replaceAll("\\p{Z}+", "-").toLowerCase())));
+			map.put("xml_created", xml(Utils.formatDate(post.getTimestamp(),
+					"EEE, dd MMM yyyy HH:mm:ss Z", Locale.ENGLISH)));
+			map.put("xml_body", xml(Strings.CS.removeEnd(Utils.markdownToHtml(post.getBody()), "\n")));
 			entriez.add(map);
 		}
 		model.addAttribute("entries", entriez);
@@ -344,6 +347,10 @@ public class SearchController {
 		res.setContentType("application/rss+xml");
 		res.addHeader("Cache-Control", "max-age=3600");
 		return "feed";
+	}
+
+	static String xml(String value) {
+		return StringEscapeUtils.escapeXml10(StringUtils.defaultString(value));
 	}
 
 	@ResponseBody
