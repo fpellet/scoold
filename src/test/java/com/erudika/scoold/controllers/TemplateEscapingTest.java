@@ -18,10 +18,12 @@
 package com.erudika.scoold.controllers;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import com.erudika.para.client.ParaClient;
 import com.erudika.para.core.email.Emailer;
 import com.erudika.scoold.ScooldServer;
+import com.erudika.scoold.core.Badge;
 import com.erudika.scoold.core.Profile;
 import com.erudika.scoold.core.Question;
 import com.erudika.scoold.utils.LanguageUtils;
@@ -84,6 +86,20 @@ public class TemplateEscapingTest {
 		assertEquals(TITLE, question.get("name").asText());
 		assertEquals(author.getName(), question.get("author").get("name").asText());
 		assertEquals(ScooldUtils.getConfig().serverUrl() + q.getPostLinkForRedirect(), question.get("url").asText());
+	}
+
+	@Test
+	public void customBadgeStyleIsEscapedOnce() throws Exception {
+		Badge badge = new Badge();
+		badge.setTag("expert");
+		badge.setStyle("font-family:'Roboto'; content:\"é\"");
+
+		VelocityContext ctx = new VelocityContext();
+		ctx.put("badge", badge);
+		StringWriter out = new StringWriter();
+		engine.evaluate(ctx, out, "test", "#custombadgebox($badge \"\")");
+
+		assertTrue(out.toString(), out.toString().contains("style=\"font-family:'Roboto'; content:&quot;&eacute;&quot;\""));
 	}
 
 	@Test

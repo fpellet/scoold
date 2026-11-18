@@ -716,7 +716,8 @@
 						#end
 						<a href="$!actionlink" class="">
 							#if($showSpaceLabel)
-								#set($spaceLabel = "$!scooldUtils.getSpaceName($!showpost.space)")
+								#set($spaceLabel = "")
+								#if($showpost.space)#set($spaceLabel = $scooldUtils.getSpaceName($showpost.space))#end
 								#if(!$spaceLabel.trim().isEmpty())
 									<span class="grey-text text-darken-2"><strong class="mrs">$spaceLabel</strong>#ico("chevron-right" "")</span>
 								#end
@@ -1092,16 +1093,17 @@
 ###################################
 #macro(custombadgebox $badge $clazz)
 #if($badge)
-	#set($style = "$badge.style" )
+	## Badge.getStyle() is already HTML-escaped
+	#set($_badgeStyle = $badge.style)
 	#if(!$isMod && ($clazz == "add" || $clazz == "remove")) #set($clazz = "" )	#end
-	<a href="$peoplelink/tag/$!badge.tag" class="chip custom-badge $!{clazz}" title="$!badge.description" style="$style"
+	<a href="$peoplelink/tag/$!badge.tag" class="chip custom-badge $!{clazz}" title="$!badge.description" style="$_badgeStyle"
 				data-url="$profilelink/$!showUser.creatorid/toggle-badge/$!badge.tag">
 		<span class="hide tooltipped remove-badge" data-tooltip="$!lang.get('removebadge')">-</span>
 		<span class="hide tooltipped add-badge" data-tooltip="$!lang.get('addbadge')">+</span>
 		#if($badge.icon)<span class="badge-icon">$!badge.icon</span>#end
 		<b>$!badge.name</b>
 		#if($isMod)
-		<a href="$profilelink/delete-badge/$!badge.tag" class="post-refresh-ask hide" style="$style">
+		<a href="$profilelink/delete-badge/$!badge.tag" class="post-refresh-ask hide" style="$_badgeStyle">
 			<span class="tooltipped mhs" data-tooltip="$!lang.get('deletebadge')">#ico("close" "")</span>
 		</a>
 		#end

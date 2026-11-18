@@ -126,9 +126,12 @@
 					<div class="col l6 m12 s12">
 						<strong>$!lang.get('tags.title')</strong>
 						<div class="input-field">
-							#set($tagsFromPager = "$!itemcount.name" )
-							#set($tagsFromPagerString = "$!tagsFromPager.replaceFirst('with_tags:', '')" )
-							#set($tagz = "$utils.noSpaces($!authUser.getFavtags().toString(), '')")
+							## no string interpolation here: it would HTML-escape the values once more before they're printed
+							#set($tagsFromPager = "")
+							#if($itemcount.name)#set($tagsFromPager = $itemcount.name)#end
+							#set($tagsFromPagerString = $tagsFromPager.replaceFirst('with_tags:', ''))
+							#set($tagz = "")
+							#if($authUser)#set($tagz = $utils.noSpaces($authUser.getFavtags().toString(), ''))#end
 							<div class="chips chips-autocomplete" title="$!lang.get('tags.title')"></div>
 							#if ($authenticated && $tagFilterOn)
 								<input type="hidden" name="tags" value="$!tagz.replaceAll('[\[\]]', '')">
