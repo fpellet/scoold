@@ -2832,11 +2832,29 @@ public final class ScooldUtils {
 		return SIGNINLINK + "?code=3&error=true";
 	}
 
+	/**
+	 * Escapes a value for a JSON string inside a &lt;script type="application/ld+json"&gt; block.
+	 * Everything except ASCII letters, digits, space and a few punctuation characters is written as a
+	 * \\uXXXX escape: the result is valid JSON, can't close the script element and contains no character
+	 * altered by the HTML escaping applied to template references.
+	 * @param value a value
+	 * @return the escaped value, without the surrounding quotes
+	 */
 	public String getJsonLdValue(String value) {
 		if (value == null) {
 			return "-";
 		}
-		return StringEscapeUtils.escapeJson(value).replace("</", "<\\/");
+		StringBuilder sb = new StringBuilder(value.length());
+		for (int i = 0; i < value.length(); i++) {
+			char c = value.charAt(i);
+			if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') ||
+					" -_.,:;/?=#%+()!*@~".indexOf(c) >= 0) {
+				sb.append(c);
+			} else {
+				sb.append(String.format("\\u%04x", (int) c));
+			}
+		}
+		return sb.toString();
 	}
 
 	public String getJsonLdText(String value) {

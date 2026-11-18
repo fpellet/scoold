@@ -1323,7 +1323,7 @@ $utils.formatDate($date, $format, $currentLocale)
 #macro(renderJSONLD)
 	#if($path == "questions.vm" && !$askSelected && $questionslist && !$questionslist.isEmpty())
 		#foreach($question in $questionslist)
-			#set($questionUrl = "$!scooldUtils.config.serverUrl()$!question.getPostLinkForRedirect()")
+			#set($questionUrl = $scooldUtils.config.serverUrl().concat($question.getPostLinkForRedirect()))
 			<script nonce="$cspNonce" type="application/ld+json">
 				{
 				"@context": "https://schema.org",
@@ -1341,7 +1341,7 @@ $utils.formatDate($date, $format, $currentLocale)
 			</script>
 		#end
 	#elseif($path == "question.vm" && $showPost && !$showPost.isReply())
-		#set($questionUrl = "$!scooldUtils.config.serverUrl()$!showPost.getPostLinkForRedirect()")
+		#set($questionUrl = $scooldUtils.config.serverUrl().concat($showPost.getPostLinkForRedirect()))
 		#set($acceptedAnswerPresent = false)
 		#set($suggestedAnswerCount = 0)
 		#if($answerslist && !$answerslist.isEmpty())
@@ -1391,8 +1391,8 @@ $utils.formatDate($date, $format, $currentLocale)
 			}
 		</script>
 	#elseif($path == "profile.vm" && $showUser)
-		#set($profileUrl = "$!scooldUtils.config.serverUrl()$!showUser.getProfileLink()")
-		#set($profileImage = "#profilepic($showUser, 'Profile')")
+		#set($profileUrl = $scooldUtils.config.serverUrl().concat($showUser.getProfileLink()))
+		#set($profileImage = $scooldUtils.getFullAvatarURL($showUser, 'Profile'))
 		#set($postsCount = $itemcount1.count + $itemcount2.count)
 		<script nonce="$cspNonce" type="application/ld+json">
 		{
@@ -1422,7 +1422,7 @@ $utils.formatDate($date, $format, $currentLocale)
 #end
 #####################################
 #macro(jsonldAuthor $author)
-	#set($authorUrl = "$!scooldUtils.config.serverUrl()$!author.getProfileLink()")
+	#set($authorUrl = $scooldUtils.config.serverUrl().concat($author.getProfileLink()))
 				{
 					"@type": "Person",
 					"name": "$!scooldUtils.getJsonLdValue($!author.name)"#if($author.getProfileLink() && !$author.getProfileLink().isEmpty()),
@@ -1431,7 +1431,7 @@ $utils.formatDate($date, $format, $currentLocale)
 #end
 #####################################
 #macro(jsonldAnswer $answer $questionUrl)
-	#set($answerUrl = "${questionUrl}#post-$!answer.id")
+	#set($answerUrl = $questionUrl.concat('#post-').concat($answer.id))
 		{
 			"@type": "Answer",
 			"@id": "$!scooldUtils.getJsonLdValue($!answerUrl)",
