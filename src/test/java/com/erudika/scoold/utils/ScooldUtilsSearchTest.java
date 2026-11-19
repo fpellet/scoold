@@ -235,7 +235,33 @@ public class ScooldUtilsSearchTest {
 		assertFalse(new SearchUtils.SanitizedQuery("", "   ").isSimpleTermQuery());
 	}
 
+	// ---- isBrowseAll ----
+
+	@Test
+	public void testIsBrowseAll_wildcardWithSpaceFilter() {
+		assertTrue(new SearchUtils.SanitizedQuery("properties.space:\"scooldspace:default\"", "*").isBrowseAll());
+		assertTrue(new SearchUtils.SanitizedQuery("properties.space:\"scooldspace:default\"", "").isBrowseAll());
+		assertTrue(new SearchUtils.SanitizedQuery("*", "*").isBrowseAll());
+	}
+
+	@Test
+	public void testIsBrowseAll_termQuery_notBrowseAll() {
+		assertFalse(new SearchUtils.SanitizedQuery("properties.space:\"scooldspace:default\"", "foo").isBrowseAll());
+		assertFalse(new SearchUtils.SanitizedQuery("*", "foo").isBrowseAll());
+	}
+
 	// ---- fullQuestionsSearch query construction ----
+
+	@Test
+	public void testFullQuestionsSearch_wildcardWithSpaceFilter_noBoostClause() throws Exception {
+		String qs = captureSearchQuery("properties.space:\"scooldspace:default\"", "*");
+		assertEquals("properties.space:\"scooldspace:default\" AND type:(question OR sticky OR reply OR comment)", qs);
+	}
+
+	@Test
+	public void testFullQuestionsSearch_wildcardWithoutSpaceFilter_typeFilterOnly() throws Exception {
+		assertEquals("type:(question OR sticky OR reply OR comment)", captureSearchQuery("*", "*"));
+	}
 
 /**
 	 * Calls fullQuestionsSearch with a mock ParaClient that captures the query

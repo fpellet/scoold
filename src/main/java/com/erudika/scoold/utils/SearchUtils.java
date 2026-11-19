@@ -259,11 +259,14 @@ public final class SearchUtils {
 		String typeFilter = Config._TYPE + ":(" + String.join(" OR ",
 						Utils.type(Question.class), Utils.type(Sticky.class),
 						Utils.type(Reply.class), Utils.type(Comment.class)) + ")";
+		String spacePrefix = StringUtils.isBlank(sq.queryFilter()) || "*".equals(sq.queryFilter()) ?
+				null : sq.queryFilter();
 		String qs;
 		if (sq.isBrowseAll()) {
 			// "browse all" - no meaningful relevance, so sort by newest-first
-			// (the old default) rather than by (equal) score.
-			qs = typeFilter;
+			// (the old default) rather than by (equal) score. The space filter
+			// is kept; a bare "*" must never reach the boost clause below.
+			qs = spacePrefix == null ? typeFilter : spacePrefix + " AND " + typeFilter;
 			if (pager != null && pager.length > 0) {
 				Pager p = pager[0];
 				if (p != null && StringUtils.isBlank(p.getSortby())) {
@@ -279,18 +282,12 @@ public final class SearchUtils {
 			// matches a 2x boost. The space-filter prefix from the SanitizedQuery
 			// record is preserved.
 			String boostPhrase = sq.query();
-			String spacePrefix = StringUtils.isBlank(sq.queryFilter()) || "*".equals(sq.queryFilter()) ?
-					null : sq.queryFilter();
-			String boostClause = "";
-			if (!Strings.CI.equals(boostPhrase, "*")) {
-				boostClause = "(properties.title:" + boostPhrase + "^3"
-						+ " OR properties.body:" + boostPhrase + "^2"
-						+ " OR tags:" + boostPhrase + "^2"
-						+ " OR " + boostPhrase + ")";
-			}
-			String and = StringUtils.isBlank(boostClause) ? "" : " AND ";
+			String boostClause = "(properties.title:" + boostPhrase + "^3"
+					+ " OR properties.body:" + boostPhrase + "^2"
+					+ " OR tags:" + boostPhrase + "^2"
+					+ " OR " + boostPhrase + ")";
 			qs = (spacePrefix == null ? boostClause
-					: spacePrefix + and + boostClause) + and + typeFilter;
+					: spacePrefix + " AND " + boostClause) + " AND " + typeFilter;
 		} else {
 			qs = sq.queryString() + " AND " + typeFilter;
 		}
@@ -359,13 +356,10 @@ public final class SearchUtils {
 		}
 
 		/**
-		 * @return true when the query matches everything ("browse all")
+		 * @return true when the query matches everything ("browse all"), whatever the space filter
 		 */
 		public boolean isBrowseAll() {
-			if (StringUtils.isBlank(queryFilter)) {
-				return true;
-			}
-			return "*".equals(queryFilter) && (StringUtils.isBlank(query) || query.startsWith("*"));
+			return StringUtils.isBlank(queryFilter) || StringUtils.isBlank(query) || query.startsWith("*");
 		}
 
 		/**
