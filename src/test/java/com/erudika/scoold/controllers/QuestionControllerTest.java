@@ -18,8 +18,12 @@
 package com.erudika.scoold.controllers;
 
 import com.erudika.para.client.ParaClient;
+import com.erudika.para.core.User;
 import com.erudika.para.core.email.Emailer;
+import com.erudika.para.core.utils.Pager;
+import com.erudika.scoold.ScooldServer;
 import com.erudika.scoold.core.Post;
+import com.erudika.scoold.core.Profile;
 import com.erudika.scoold.core.Question;
 import com.erudika.scoold.utils.CoreUtils;
 import com.erudika.scoold.utils.LanguageUtils;
@@ -29,6 +33,7 @@ import com.erudika.scoold.utils.avatars.GravatarAvatarGenerator;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import static org.junit.Assert.*;
@@ -37,6 +42,7 @@ import org.junit.Test;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.View;
 
@@ -120,6 +126,54 @@ public class QuestionControllerTest {
 		String view = controller.get(ID, "old-title", null, req, mock(HttpServletResponse.class), mock(Model.class));
 		assertEquals("base", view);
 		verify(req, never()).setAttribute(eq(View.RESPONSE_STATUS_ATTRIBUTE), any());
+	}
+
+	@Test
+	public void testFindAjax_AnonymousIsForbidden() {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		ResponseEntity<List<Map<String, String>>> res = controller.findAjax("test", req, mock(HttpServletResponse.class));
+		assertEquals(HttpStatus.FORBIDDEN, res.getStatusCode());
+		assertTrue(res.getBody().isEmpty());
+		verify(pc, never()).findQuery(anyString(), anyString(), any(Pager[].class));
+	}
+
+	@Test
+	public void testFindAjax_RegularUserIsForbidden() {
+		HttpServletRequest req = authenticated(profile(User.Groups.USERS));
+		ResponseEntity<List<Map<String, String>>> res = controller.findAjax("test", req, mock(HttpServletResponse.class));
+		assertEquals(HttpStatus.FORBIDDEN, res.getStatusCode());
+		assertTrue(res.getBody().isEmpty());
+		verify(pc, never()).findQuery(anyString(), anyString(), any(Pager[].class));
+	}
+
+	@Test
+	public void testFindAjax_ModGetsOnlyIdAndTitle() {
+		Question q = new Question();
+		q.setId(ID);
+		q.setTitle("Comment déclarer l'URSSAF ?");
+		User follower = new User("follower1");
+		follower.setEmail("jean.dupont@example.com");
+		q.addFollower(follower);
+		when(pc.findQuery(anyString(), anyString(), any(Pager[].class))).thenReturn(List.of(q));
+
+		HttpServletRequest req = authenticated(profile(User.Groups.ADMINS));
+		ResponseEntity<List<Map<String, String>>> res = controller.findAjax("urssaf", req, mock(HttpServletResponse.class));
+
+		assertEquals(HttpStatus.OK, res.getStatusCode());
+		assertEquals(List.of(Map.of("id", ID, "title", "Comment déclarer l'URSSAF ?")), res.getBody());
+	}
+
+	private static Profile profile(User.Groups group) {
+		Profile p = new Profile("u1");
+		p.setGroups(group.toString());
+		p.setEditorRoleEnabled(true);
+		return p;
+	}
+
+	private static HttpServletRequest authenticated(Profile authUser) {
+		HttpServletRequest req = mock(HttpServletRequest.class);
+		when(req.getAttribute(ScooldServer.AUTH_USER_ATTRIBUTE)).thenReturn(authUser);
+		return req;
 	}
 
 	private static HttpServletRequest request(String title, String queryString) {

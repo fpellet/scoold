@@ -516,14 +516,24 @@ public class QuestionController {
 	}
 
 	@GetMapping(path = "/find/{q}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Post>> findAjax(@PathVariable String q, HttpServletRequest req, HttpServletResponse res) {
-		if (!utils.isDefaultSpacePublic() && !utils.isAuthenticated(req)) {
-			res.setStatus(401);
-			return ResponseEntity.status(401).body(Collections.emptyList());
+	public ResponseEntity<List<Map<String, String>>> findAjax(@PathVariable String q, HttpServletRequest req,
+			HttpServletResponse res) {
+		// only used by the "merge into" autocomplete, which is shown to moderators only
+		if (!utils.isMod(utils.getAuthUser(req))) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Collections.emptyList());
 		}
 		Pager pager = new Pager(1, "votes", true, 10);
-		return ResponseEntity.ok(SearchUtils.getInstance().
-				fullQuestionsSearch(SearchUtils.getInstance().sanitizeQueryString(q + "*", req), pager));
+		List<Post> questions = SearchUtils.getInstance().
+				fullQuestionsSearch(SearchUtils.getInstance().sanitizeQueryString(q + "*", req), pager);
+		// return only what the autocomplete needs - full posts expose the emails of their followers
+		List<Map<String, String>> results = new ArrayList<>(questions.size());
+		for (Post question : questions) {
+			Map<String, String> result = new LinkedHashMap<>(2);
+			result.put("id", question.getId());
+			result.put("title", question.getTitle());
+			results.add(result);
+		}
+		return ResponseEntity.ok(results);
 	}
 
 	private void changeSpaceForAllAnswers(Post showPost, String space) {
